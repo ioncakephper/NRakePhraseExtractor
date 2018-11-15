@@ -195,5 +195,23 @@ namespace WindowsFormsApp5
         {
             ExtractPhrases();
         }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var d = new AboutBox1();
+            d.ShowDialog();
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var d = new OptionsDialog();
+            d.ShowDialog();
+        }
+
+        private void customizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var d = new CustomizeDialog();
+            d.ShowDialog();
+        }
     }
 }
