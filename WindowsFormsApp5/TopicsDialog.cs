@@ -1,32 +1,65 @@
-﻿using System.Linq;
-using System.Windows.Forms;
+﻿//------------------------------------------------------------------------------
+// <copyright file="TopicsDialog.cs" company="Ion Giread">
+//      Copyright (c) Ion Gireada. All rights reserved.
+// </copyright>
+//------------------------------------------------------------------------------
 
 namespace WindowsFormsApp5
 {
+    using System.Linq;
+    using System.Windows.Forms;
+
+    /// <summary>
+    /// Defines the <see cref="TopicsDialog" />
+    /// </summary>
     public partial class TopicsDialog : Form
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TopicsDialog"/> class.
+        /// </summary>
         public TopicsDialog()
         {
             Topics = new Topics();
             InitializeComponent();
         }
 
-        private void PopulateTopicsListView(Topics topics)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TopicsDialog"/> class.
+        /// </summary>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        public TopicsDialog(Topics topics) : this()
         {
-            PopulateTopicsListView(topics, string.Empty);
+            Topics = topics;
         }
 
-        private void PopulateTopicsListView(Topics topics, string filter)
+        /// <summary>
+        /// Gets or sets the Topics
+        /// </summary>
+        public Topics Topics { get; set; }
+
+        /// <summary>
+        /// The button1_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="System.EventArgs"/></param>
+        private void button1_Click(object sender, System.EventArgs e)
         {
-            topicsListView.Items.Clear();
-            topicsListView.Items.AddRange(GetFilteredAllTopicListViewItems(topics, filter));
+            openFileDialog1.FileName = string.Empty;
+            if (openFileDialog1.ShowDialog().Equals(DialogResult.OK))
+            {
+                var fileNames = openFileDialog1.FileNames;
+                Topics.AddRange(fileNames.Select(filePath => new Topic(filePath)).ToArray());
+                PopulateTopicsListView(Topics);
+                changeDetector1.Changed = true;
+            }
         }
 
-        private ListViewItem[] GetFilteredAllTopicListViewItems(Topics topics, string filter)
-        {
-            return GetAllTopicListViewItems(topics).Where(item => ContainsFilter(filter, item)).ToArray();
-        }
-
+        /// <summary>
+        /// The ContainsFilter
+        /// </summary>
+        /// <param name="filter">The filter<see cref="string"/></param>
+        /// <param name="item">The item<see cref="ListViewItem"/></param>
+        /// <returns>The <see cref="bool"/></returns>
         private bool ContainsFilter(string filter, ListViewItem item)
         {
             if (item.Text.Contains(filter))
@@ -44,11 +77,32 @@ namespace WindowsFormsApp5
             return false;
         }
 
+        /// <summary>
+        /// The GetAllTopicListViewItems
+        /// </summary>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        /// <returns>The <see cref="ListViewItem[]"/></returns>
         private ListViewItem[] GetAllTopicListViewItems(Topics topics)
         {
             return topics.Select(topic => GetSingleTopicListViewItem(topic)).ToArray();
         }
 
+        /// <summary>
+        /// The GetFilteredAllTopicListViewItems
+        /// </summary>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        /// <param name="filter">The filter<see cref="string"/></param>
+        /// <returns>The <see cref="ListViewItem[]"/></returns>
+        private ListViewItem[] GetFilteredAllTopicListViewItems(Topics topics, string filter)
+        {
+            return GetAllTopicListViewItems(topics).Where(item => ContainsFilter(filter, item)).ToArray();
+        }
+
+        /// <summary>
+        /// The GetSingleTopicListViewItem
+        /// </summary>
+        /// <param name="topic">The topic<see cref="Topic"/></param>
+        /// <returns>The <see cref="ListViewItem"/></returns>
         private ListViewItem GetSingleTopicListViewItem(Topic topic)
         {
             ListViewItem item = new ListViewItem(topic.Title);
@@ -77,36 +131,47 @@ namespace WindowsFormsApp5
             return item;
         }
 
-        public TopicsDialog(Topics topics) : this()
+        /// <summary>
+        /// The PopulateTopicsListView
+        /// </summary>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        private void PopulateTopicsListView(Topics topics)
         {
-            Topics = topics;
+            PopulateTopicsListView(topics, string.Empty);
         }
 
-        public Topics Topics { get; set; }
-
-        private void TopicsDialog_Load(object sender, System.EventArgs e)
+        /// <summary>
+        /// The PopulateTopicsListView
+        /// </summary>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        /// <param name="filter">The filter<see cref="string"/></param>
+        private void PopulateTopicsListView(Topics topics, string filter)
         {
-            PopulateTopicsListView(Topics);
+            topicsListView.Items.Clear();
+            topicsListView.Items.AddRange(GetFilteredAllTopicListViewItems(topics, filter));
         }
 
-        private void button1_Click(object sender, System.EventArgs e)
-        {
-            openFileDialog1.FileName = string.Empty;
-            if (openFileDialog1.ShowDialog().Equals(DialogResult.OK))
-            {
-                var fileNames = openFileDialog1.FileNames;
-                Topics.AddRange(fileNames.Select(filePath => new Topic(filePath)).ToArray());
-                PopulateTopicsListView(Topics);
-                changeDetector1.Changed = true;
-            }
-        }
-
+        /// <summary>
+        /// The TopicsDialog_FormClosing
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="FormClosingEventArgs"/></param>
         private void TopicsDialog_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (DialogResult.Equals(DialogResult.Cancel))
             {
                 e.Cancel = changeDetector1.RequestDecision();
             }
+        }
+
+        /// <summary>
+        /// The TopicsDialog_Load
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="System.EventArgs"/></param>
+        private void TopicsDialog_Load(object sender, System.EventArgs e)
+        {
+            PopulateTopicsListView(Topics);
         }
     }
 }

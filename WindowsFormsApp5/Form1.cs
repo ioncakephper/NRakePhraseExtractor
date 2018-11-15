@@ -1,18 +1,49 @@
-﻿using System;
-using System.Linq;
-using System.Windows.Forms;
+﻿//------------------------------------------------------------------------------
+// <copyright file="Form1.cs" company="Ion Giread">
+//      Copyright (c) Ion Gireada. All rights reserved.
+// </copyright>
+//------------------------------------------------------------------------------
 
 namespace WindowsFormsApp5
 {
+    using System;
+    using System.Linq;
+    using System.Windows.Forms;
+
+    /// <summary>
+    /// Defines the <see cref="Form1" />
+    /// </summary>
     public partial class Form1 : Form
     {
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Form1"/> class.
+        /// </summary>
         public Form1()
         {
             Corpus = new Corpus();
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Form1"/> class.
+        /// </summary>
+        /// <param name="corpus">The corpus<see cref="Corpus"/></param>
+        public Form1(Corpus corpus) : this()
+        {
+            Corpus = corpus;
+        }
+
+        /// <summary>
+        /// Gets or sets the Corpus
+        /// </summary>
+        public Corpus Corpus { get; set; }
+
+        /// <summary>
+        /// The ContainsFilter
+        /// </summary>
+        /// <param name="item">The item<see cref="ListViewItem"/></param>
+        /// <param name="filter">The filter<see cref="string"/></param>
+        /// <returns>The <see cref="bool"/></returns>
         private bool ContainsFilter(ListViewItem item, string filter)
         {
             if (item.Text.Contains(filter))
@@ -30,11 +61,57 @@ namespace WindowsFormsApp5
             return false;
         }
 
+        /// <summary>
+        /// The ExtractPhrases
+        /// </summary>
+        private void ExtractPhrases()
+        {
+            var d = new SelectedTopicsDialog(Corpus.Topics);
+            if (d.ShowDialog().Equals(DialogResult.OK))
+            {
+                var topics = d.Topics;
+                Corpus.Phrases = GetTopicPhrases(topics);
+                PopulatePhraseListView(Corpus.Phrases);
+                changeDetector1.Changed = true;
+            }
+        }
+
+        /// <summary>
+        /// The Form1_FormClosing
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="FormClosingEventArgs"/></param>
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = changeDetector1.RequestDecision();
+        }
+
+        /// <summary>
+        /// The GetAllPhraseListViewItems
+        /// </summary>
+        /// <param name="phrases">The phrases<see cref="Phrases"/></param>
+        /// <returns>The <see cref="ListViewItem[]"/></returns>
         private ListViewItem[] GetAllPhraseListViewItems(Phrases phrases)
         {
             return phrases.Select(phrase => GetSinglePhraseListViewItem(phrase)).ToArray();
         }
 
+        /// <summary>
+        /// The GetFilteredAllPhraseListViewItems
+        /// </summary>
+        /// <param name="phrases">The phrases<see cref="Phrases"/></param>
+        /// <param name="filter">The filter<see cref="string"/></param>
+        /// <returns>The <see cref="ListViewItem[]"/></returns>
+        private ListViewItem[] GetFilteredAllPhraseListViewItems(Phrases phrases, string filter)
+        {
+            return GetAllPhraseListViewItems(phrases).Where(item => ContainsFilter(item, filter)).ToArray();
+        }
+
+        /// <summary>
+        /// The GetSinglePhraseListViewItem
+        /// </summary>
+        /// <param name="phrase">The phrase<see cref="Phrase"/></param>
+        /// <returns>The <see cref="ListViewItem"/></returns>
         private ListViewItem GetSinglePhraseListViewItem(Phrase phrase)
         {
             ListViewItem item = new ListViewItem(phrase.Text);
@@ -54,21 +131,22 @@ namespace WindowsFormsApp5
             return item;
         }
 
-        public Form1(Corpus corpus) : this()
+        /// <summary>
+        /// The GetTopicPhrases
+        /// </summary>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        /// <returns>The <see cref="Phrases"/></returns>
+        private Phrases GetTopicPhrases(Topics topics)
         {
-            Corpus = corpus;
+            CollectionKeywordExtractor kwe = new CollectionKeywordExtractor(topics);
+            var phrases = new Phrases(kwe.FindPhrases(kwe.GetText()));
+
+            return phrases;
         }
 
-        public Corpus Corpus
-        {
-            get; set;
-        }
-
-        private void toolStripButton1_Click(object sender, EventArgs e)
-        {
-            ManageTopics();
-        }
-
+        /// <summary>
+        /// The ManageTopics
+        /// </summary>
         private void ManageTopics()
         {
             var topicsDialog = new TopicsDialog(Corpus.Topics);
@@ -76,30 +154,46 @@ namespace WindowsFormsApp5
             {
                 Corpus.Topics = topicsDialog.Topics;
             }
-
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        /// <summary>
+        /// The PopulatePhraseListView
+        /// </summary>
+        /// <param name="phrases">The phrases<see cref="Phrases"/></param>
+        private void PopulatePhraseListView(Phrases phrases)
         {
-            e.Cancel = changeDetector1.RequestDecision();
+            PopulatePhraseListView(phrases, string.Empty);
         }
 
+        /// <summary>
+        /// The PopulatePhraseListView
+        /// </summary>
+        /// <param name="phrases">The phrases<see cref="Phrases"/></param>
+        /// <param name="filter">The filter<see cref="string"/></param>
+        private void PopulatePhraseListView(Phrases phrases, string filter)
+        {
+            phrasesListView.Items.Clear();
+            phrasesListView.Items.AddRange(GetFilteredAllPhraseListViewItems(phrases, filter));
+        }
+
+        /// <summary>
+        /// The toolStripButton1_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            ManageTopics();
+        }
+
+        /// <summary>
+        /// The toolStripButton2_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
         private void toolStripButton2_Click(object sender, EventArgs e)
         {
             ExtractPhrases();
-        }
-
-        private void ExtractPhrases()
-        {
-            var d = new SelectedTopicsDialog(Corpus.Topics);
-            if (d.ShowDialog().Equals(DialogResult.OK))
-            {
-                var topics = d.Topics;
-                Corpus.Phrases = GetTopicPhrases(topics);
-                PopulatePhraseListView(Corpus.Phrases);
-                changeDetector1.Changed = true;
-            }
-
         }
     }
 }
