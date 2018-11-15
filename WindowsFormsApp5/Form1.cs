@@ -83,5 +83,23 @@ namespace WindowsFormsApp5
         {
             e.Cancel = changeDetector1.RequestDecision();
         }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            ExtractPhrases();
+        }
+
+        private void ExtractPhrases()
+        {
+            var d = new SelectedTopicsDialog(Corpus.Topics);
+            if (d.ShowDialog().Equals(DialogResult.OK))
+            {
+                var topics = d.Topics;
+                Corpus.Phrases = GetTopicPhrases(topics);
+                PopulatePhraseListView(Corpus.Phrases);
+                changeDetector1.Changed = true;
+            }
+
+        }
     }
 }

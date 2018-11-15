@@ -77,6 +77,7 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.changeDetector1 = new WindowsFormsControlLibrary1.ChangeDetector(this.components);
+            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -329,7 +330,8 @@
             this.pasteToolStripButton,
             this.toolStripSeparator7,
             this.helpToolStripButton,
-            this.toolStripButton1});
+            this.toolStripButton1,
+            this.toolStripButton2});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(800, 25);
@@ -446,6 +448,10 @@
             this.phrasesListView.UseCompatibleStateImageBehavior = false;
             this.phrasesListView.View = System.Windows.Forms.View.Details;
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Width = 193;
+            // 
             // toolStripButton1
             // 
             this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -459,6 +465,16 @@
             // changeDetector1
             // 
             this.changeDetector1.DialogResult = System.Windows.Forms.DialogResult.None;
+            // 
+            // toolStripButton2
+            // 
+            this.toolStripButton2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton2.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton2.Image")));
+            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton2.Name = "toolStripButton2";
+            this.toolStripButton2.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton2.Text = "Extract";
+            this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
             // Form1
             // 
@@ -532,6 +548,7 @@
         private System.Windows.Forms.ListView phrasesListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private WindowsFormsControlLibrary1.ChangeDetector changeDetector1;
+        private System.Windows.Forms.ToolStripButton toolStripButton2;
     }
 }
 
