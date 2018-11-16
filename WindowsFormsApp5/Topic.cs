@@ -23,6 +23,7 @@ namespace WindowsFormsApp5
         /// </summary>
         public Topic()
         {
+            Phrases = new Phrases();
         }
 
         /// <summary>
@@ -58,6 +59,11 @@ namespace WindowsFormsApp5
         /// Gets or sets the Folder
         /// </summary>
         public string Folder { get; internal set; }
+
+        /// <summary>
+        /// Gets or sets the Phrases
+        /// </summary>
+        public Phrases Phrases { get; set; }
 
         /// <summary>
         /// Gets or sets the Title

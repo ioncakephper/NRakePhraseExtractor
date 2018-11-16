@@ -37,7 +37,8 @@ namespace WindowsFormsApp5
         public Phrase[] FindPhrases(string text)
         {
             string[] keywords = FindKeyPhrases(text);
-            var phrases = keywords.Select(kw => new Phrase(kw)).ToArray();
+            int rank = 0;
+            var phrases = keywords.Select(kw => new Phrase(kw, AggregatedLeagueTable, ++rank)).ToArray();
 
             return phrases;
         }

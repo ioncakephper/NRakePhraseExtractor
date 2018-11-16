@@ -1,14 +1,17 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="Form1.cs" company="Ion Giread">
+// <copyright file="form1.cs" company="Ion Gireada">
 //      Copyright (c) Ion Gireada. All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
 
 namespace WindowsFormsApp5
 {
+    using NRakeCore;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Windows.Forms;
+    using System.Xml;
 
     /// <summary>
     /// Defines the <see cref="Form1" />
@@ -39,6 +42,17 @@ namespace WindowsFormsApp5
         public Corpus Corpus { get; set; }
 
         /// <summary>
+        /// The aboutToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var d = new AboutBox1();
+            d.ShowDialog();
+        }
+
+        /// <summary>
         /// The ContainsFilter
         /// </summary>
         /// <param name="item">The item<see cref="ListViewItem"/></param>
@@ -59,6 +73,96 @@ namespace WindowsFormsApp5
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// The CreatePhraseListItem
+        /// </summary>
+        /// <param name="phrase">The phrase<see cref="Phrase"/></param>
+        /// <param name="doc">The doc<see cref="XmlDocument"/></param>
+        /// <returns>The <see cref="XmlElement"/></returns>
+        private XmlElement CreatePhraseListItem(Phrase phrase, XmlDocument doc)
+        {
+            var li = doc.CreateElement("LI");
+
+            var objectElement = doc.CreateElement("object");
+            objectElement.SetAttribute("type", "text/sitemap");
+
+            var paramPhrase = doc.CreateElement("param");
+            paramPhrase.SetAttribute("name", "Name");
+            paramPhrase.SetAttribute("value", phrase.Text);
+
+            objectElement.AppendChild(paramPhrase);
+
+            foreach (Topic topic in GetTopicsOf(phrase))
+            {
+                var paramName = doc.CreateElement("param");
+                paramName.SetAttribute("name", "Name");
+                paramName.SetAttribute("value", topic.Title);
+
+                var paramLocal = doc.CreateElement("param");
+                paramLocal.SetAttribute("name", "Local");
+                paramLocal.SetAttribute("value", topic.Filepath);
+
+                objectElement.AppendChild(paramName);
+                objectElement.AppendChild(paramLocal);
+            }
+
+            li.AppendChild(objectElement);
+            return li;
+        }
+
+        /// <summary>
+        /// The customizeToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
+        private void customizeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var d = new CustomizeDialog();
+            d.ShowDialog();
+        }
+
+        /// <summary>
+        /// The ExportPhrases
+        /// </summary>
+        private void ExportPhrases()
+        {
+            if (saveFileDialog1.ShowDialog().Equals(DialogResult.OK))
+            {
+                var fileName = saveFileDialog1.FileName;
+
+                var webBrowser = new WebBrowser();
+                // var doc = webBrowser.Document;
+                var doc = new XmlDocument();
+
+                var html = doc.CreateElement("HTML");
+
+                var head = doc.CreateElement("HEAD");
+                var meta = doc.CreateElement("META");
+                meta.SetAttribute("name", "Generator");
+                meta.SetAttribute("content", "Microsoft HTML Help Workshop 4.1");
+
+                var comment = doc.CreateComment(" Sitemap 1.0 ");
+                head.AppendChild(meta);
+                head.AppendChild(comment);
+
+                var ul = doc.CreateElement("UL");
+                foreach (var phrase in Corpus.Phrases)
+                {
+                    ul.AppendChild(CreatePhraseListItem(phrase, doc));
+                }
+
+                var body = doc.CreateElement("BODY");
+                body.AppendChild(ul);
+
+                html.AppendChild(head);
+                html.AppendChild(body);
+
+                doc.AppendChild(html);
+
+                doc.Save(fileName);
+            }
         }
 
         /// <summary>
@@ -86,6 +190,22 @@ namespace WindowsFormsApp5
             e.Cancel = changeDetector1.RequestDecision();
         }
 
+        /// <summary>
+        /// The GetPhraseTopics
+        /// </summary>
+        /// <param name="phrase">The phrase<see cref="Phrase"/></param>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        /// <param name="singleKeywordExtractor">The singleKeywordExtractor<see cref="KeywordExtractor"/></param>
+        private void GetPhraseTopics(Phrase phrase, Topics topics, KeywordExtractor singleKeywordExtractor)
+        {
+            foreach (var topic in topics)
+            {
+                if (singleKeywordExtractor.FindKeyPhrases(topic.GetText()).Contains(phrase.Text))
+                {
+                    phrase.Topics.Add(topic);
+                }
+            }
+        }
 
         /// <summary>
         /// The GetSinglePhraseListViewItem
@@ -101,6 +221,18 @@ namespace WindowsFormsApp5
             {
                 switch (phrasesListView.Columns[i + 1].Text)
                 {
+                    case "Words":
+                        subItems[i] = phrase.Words.Length.ToString();
+                        break;
+                    case "Score":
+                        subItems[i] = phrase.Score.ToString();
+                        break;
+                    case "Rank":
+                        subItems[i] = phrase.Rank.ToString();
+                        break;
+                    case "Topics":
+                        subItems[i] = phrase.Topics.Count.ToString();
+                        break;
                     default:
                         subItems[i] = string.Empty;
                         break;
@@ -119,9 +251,22 @@ namespace WindowsFormsApp5
         private Phrases GetTopicPhrases(Topics topics)
         {
             CollectionKeywordExtractor kwe = new CollectionKeywordExtractor(topics);
+            var singleKeywordExtractor = new KeywordExtractor(kwe.StopWordFilter);
             var phrases = new Phrases(kwe.FindPhrases(kwe.GetText()));
 
+            phrases.ForEach(phrase => GetPhraseTopics(phrase, topics, singleKeywordExtractor));
+
             return phrases;
+        }
+
+        /// <summary>
+        /// The GetTopicsOf
+        /// </summary>
+        /// <param name="phrase">The phrase<see cref="Phrase"/></param>
+        /// <returns>The <see cref="IEnumerable{Topic}"/></returns>
+        private IEnumerable<Topic> GetTopicsOf(Phrase phrase)
+        {
+            return new Topic[] { new WindowsFormsApp5.Topic() { Title = "Sample", Filepath = @"C:\Users\shytiger\Documents\sample.html" }, new WindowsFormsApp5.Topic() { Title = "Sample", Filepath = @"C:\Users\shytiger\Documents\sample.html" } };
         }
 
         /// <summary>
@@ -134,6 +279,17 @@ namespace WindowsFormsApp5
             {
                 Corpus.Topics = topicsDialog.Topics;
             }
+        }
+
+        /// <summary>
+        /// The optionsToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var d = new OptionsDialog();
+            d.ShowDialog();
         }
 
         /// <summary>
@@ -178,22 +334,14 @@ namespace WindowsFormsApp5
             ExtractPhrases();
         }
 
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        /// <summary>
+        /// The toolStripButton3_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
+        private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            var d = new AboutBox1();
-            d.ShowDialog();
-        }
-
-        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var d = new OptionsDialog();
-            d.ShowDialog();
-        }
-
-        private void customizeToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            var d = new CustomizeDialog();
-            d.ShowDialog();
+            ExportPhrases();
         }
     }
 }

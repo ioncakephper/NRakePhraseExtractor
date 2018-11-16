@@ -167,6 +167,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TopicsDialog";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Topics";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TopicsDialog_FormClosing);
             this.Load += new System.EventHandler(this.TopicsDialog_Load);

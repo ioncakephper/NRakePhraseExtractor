@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="TopicsDialog.cs" company="Ion Giread">
+// <copyright file="TopicsDialog.cs" company="Ion Gireada">
 //      Copyright (c) Ion Gireada. All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
@@ -57,8 +57,8 @@ namespace WindowsFormsApp5
         /// <summary>
         /// The ContainsFilter
         /// </summary>
-        /// <param name="filter">The filter<see cref="string"/></param>
         /// <param name="item">The item<see cref="ListViewItem"/></param>
+        /// <param name="filter">The filter<see cref="string"/></param>
         /// <returns>The <see cref="bool"/></returns>
         private bool ContainsFilter(ListViewItem item, string filter)
         {
