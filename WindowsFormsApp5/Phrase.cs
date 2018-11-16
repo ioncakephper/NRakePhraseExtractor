@@ -12,17 +12,12 @@ namespace WindowsFormsApp5
     public class Phrase
     {
         /// <summary>
-        /// Defines the keyword
-        /// </summary>
-        private string keyword;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="Phrase"/> class.
         /// </summary>
         /// <param name="keyword">The keyword<see cref="string"/></param>
         public Phrase(string keyword)
         {
-            this.keyword = keyword;
+            Text = keyword;
         }
 
         /// <summary>
@@ -30,8 +25,7 @@ namespace WindowsFormsApp5
         /// </summary>
         public string Text
         {
-            get { return keyword; }
-            set { keyword = value; }
+            get; set;
         }
     }
 }

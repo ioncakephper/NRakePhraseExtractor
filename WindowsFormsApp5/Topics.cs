@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="Topics.cs" company="Ion Giread">
+// <copyright file="Topics.cs" company="Ion Gireada">
 //      Copyright (c) Ion Gireada. All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------

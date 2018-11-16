@@ -1,64 +1,87 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿//------------------------------------------------------------------------------
+// <copyright file="selectedtopicsdialog.cs" company="Ion Gireada">
+//      Copyright (c) Ion Gireada. All rights reserved.
+// </copyright>
+//------------------------------------------------------------------------------
 
 namespace WindowsFormsApp5
 {
+    using System;
+    using System.Data;
+    using System.Linq;
+    using System.Windows.Forms;
+
+    /// <summary>
+    /// Defines the <see cref="SelectedTopicsDialog" />
+    /// </summary>
     public partial class SelectedTopicsDialog : Form
     {
-        public Topics Topics { get; set; }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectedTopicsDialog"/> class.
+        /// </summary>
         public SelectedTopicsDialog()
         {
             InitializeComponent();
-
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SelectedTopicsDialog"/> class.
+        /// </summary>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
         public SelectedTopicsDialog(Topics topics) : this()
         {
             Topics = topics;
         }
 
-        private void SelectedTopicsDialog_FormClosing(object sender, FormClosingEventArgs e)
+        /// <summary>
+        /// Gets or sets the Topics
+        /// </summary>
+        public Topics Topics { get; set; }
+
+        /// <summary>
+        /// The button4_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
+        private void button4_Click(object sender, EventArgs e)
         {
-            if (DialogResult.Equals(DialogResult.Cancel))
+            var d = new TopicsDialog(Topics);
+            if (d.ShowDialog().Equals(DialogResult.OK))
             {
-                e.Cancel = changeDetector1.RequestDecision(); 
+                Topics = d.Topics;
+                PopulateTopicsListView(Topics);
+                changeDetector1.Changed = true;
             }
         }
 
-        private void SelectedTopicsDialog_Load(object sender, EventArgs e)
+        /// <summary>
+        /// The ContainsFilter
+        /// </summary>
+        /// <param name="item">The item<see cref="ListViewItem"/></param>
+        /// <param name="filter">The filter<see cref="string"/></param>
+        /// <returns>The <see cref="bool"/></returns>
+        private bool ContainsFilter(ListViewItem item, string filter)
         {
-            PopulateTopicsListView(Topics);
+            if (item.Text.Contains(filter))
+            {
+                return true;
+            }
+            foreach (var subItem in item.SubItems)
+            {
+                if (subItem.ToString().Contains(filter))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
-        private void PopulateTopicsListView(Topics topics)
-        {
-            PopulateTopicsListView(topics, string.Empty);
-        }
-
-        private void PopulateTopicsListView(Topics topics, string filter)
-        {
-            topicListView.Items.Clear();
-            topicListView.Items.AddRange(GetFilteredAllTopicsListViewItems(topics, filter));
-        }
-
-        private ListViewItem[] GetFilteredAllTopicsListViewItems(Topics topics, string filter)
-        {
-            return GetAllTopicsListViewItems(topics).Where(item => ContainsFilter(item, filter)).ToArray();
-        }
-
-        private ListViewItem[] GetAllTopicsListViewItems(Topics topics)
-        {
-            return topics.Select(topic => GetSingleTopicListViewItem(topic)).ToArray();
-        }
-
+        /// <summary>
+        /// The GetSingleTopicListViewItem
+        /// </summary>
+        /// <param name="topic">The topic<see cref="Topic"/></param>
+        /// <returns>The <see cref="ListViewItem"/></returns>
         private ListViewItem GetSingleTopicListViewItem(Topic topic)
         {
             var item = new ListViewItem(topic.Title);
@@ -67,7 +90,7 @@ namespace WindowsFormsApp5
             var subItems = new string[topicListView.Columns.Count - 1];
             for (int i = 0; i < subItems.Length; i++)
             {
-                switch (topicListView.Columns[i+1].Text)
+                switch (topicListView.Columns[i + 1].Text)
                 {
                     case "Filename":
                         subItems[i] = topic.Filename;
@@ -88,32 +111,49 @@ namespace WindowsFormsApp5
             return item;
         }
 
-        private bool ContainsFilter(ListViewItem item, string filter)
+        /// <summary>
+        /// The PopulateTopicsListView
+        /// </summary>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        private void PopulateTopicsListView(Topics topics)
         {
-            if (item.Text.Contains(filter))
-            {
-                return true;
-            }
-            foreach (var subItem in item.SubItems)
-            {
-                if (subItem.ToString().Contains(filter))
-                {
-                    return true;
-                }
-            }
-
-            return false;
+            PopulateTopicsListView(topics, string.Empty);
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        /// <summary>
+        /// The PopulateTopicsListView
+        /// </summary>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        /// <param name="filter">The filter<see cref="string"/></param>
+        private void PopulateTopicsListView(Topics topics, string filter)
         {
-            var d = new TopicsDialog(Topics);
-            if (d.ShowDialog().Equals(DialogResult.OK))
+            topicListView.Items.Clear();
+
+            ListViewItem[] items = topics.Select(topic => GetSingleTopicListViewItem(topic)).Where(item => ContainsFilter(item, filter)).ToArray();
+            topicListView.Items.AddRange(items);
+        }
+
+        /// <summary>
+        /// The SelectedTopicsDialog_FormClosing
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="FormClosingEventArgs"/></param>
+        private void SelectedTopicsDialog_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (DialogResult.Equals(DialogResult.Cancel))
             {
-                Topics = d.Topics;
-                PopulateTopicsListView(Topics);
-                changeDetector1.Changed = true;
+                e.Cancel = changeDetector1.RequestDecision();
             }
+        }
+
+        /// <summary>
+        /// The SelectedTopicsDialog_Load
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
+        private void SelectedTopicsDialog_Load(object sender, EventArgs e)
+        {
+            PopulateTopicsListView(Topics);
         }
     }
 }

@@ -86,26 +86,6 @@ namespace WindowsFormsApp5
             e.Cancel = changeDetector1.RequestDecision();
         }
 
-        /// <summary>
-        /// The GetAllPhraseListViewItems
-        /// </summary>
-        /// <param name="phrases">The phrases<see cref="Phrases"/></param>
-        /// <returns>The <see cref="ListViewItem[]"/></returns>
-        private ListViewItem[] GetAllPhraseListViewItems(Phrases phrases)
-        {
-            return phrases.Select(phrase => GetSinglePhraseListViewItem(phrase)).ToArray();
-        }
-
-        /// <summary>
-        /// The GetFilteredAllPhraseListViewItems
-        /// </summary>
-        /// <param name="phrases">The phrases<see cref="Phrases"/></param>
-        /// <param name="filter">The filter<see cref="string"/></param>
-        /// <returns>The <see cref="ListViewItem[]"/></returns>
-        private ListViewItem[] GetFilteredAllPhraseListViewItems(Phrases phrases, string filter)
-        {
-            return GetAllPhraseListViewItems(phrases).Where(item => ContainsFilter(item, filter)).ToArray();
-        }
 
         /// <summary>
         /// The GetSinglePhraseListViewItem

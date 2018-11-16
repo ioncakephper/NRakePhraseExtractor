@@ -60,7 +60,7 @@ namespace WindowsFormsApp5
         /// <param name="filter">The filter<see cref="string"/></param>
         /// <param name="item">The item<see cref="ListViewItem"/></param>
         /// <returns>The <see cref="bool"/></returns>
-        private bool ContainsFilter(string filter, ListViewItem item)
+        private bool ContainsFilter(ListViewItem item, string filter)
         {
             if (item.Text.Contains(filter))
             {
@@ -75,27 +75,6 @@ namespace WindowsFormsApp5
             }
 
             return false;
-        }
-
-        /// <summary>
-        /// The GetAllTopicListViewItems
-        /// </summary>
-        /// <param name="topics">The topics<see cref="Topics"/></param>
-        /// <returns>The <see cref="ListViewItem[]"/></returns>
-        private ListViewItem[] GetAllTopicListViewItems(Topics topics)
-        {
-            return topics.Select(topic => GetSingleTopicListViewItem(topic)).ToArray();
-        }
-
-        /// <summary>
-        /// The GetFilteredAllTopicListViewItems
-        /// </summary>
-        /// <param name="topics">The topics<see cref="Topics"/></param>
-        /// <param name="filter">The filter<see cref="string"/></param>
-        /// <returns>The <see cref="ListViewItem[]"/></returns>
-        private ListViewItem[] GetFilteredAllTopicListViewItems(Topics topics, string filter)
-        {
-            return GetAllTopicListViewItems(topics).Where(item => ContainsFilter(filter, item)).ToArray();
         }
 
         /// <summary>
@@ -148,7 +127,9 @@ namespace WindowsFormsApp5
         private void PopulateTopicsListView(Topics topics, string filter)
         {
             topicsListView.Items.Clear();
-            topicsListView.Items.AddRange(GetFilteredAllTopicListViewItems(topics, filter));
+
+            ListViewItem[] items = topics.Select(topic => GetSingleTopicListViewItem(topic)).Where(item => ContainsFilter(item, filter)).ToArray();
+            topicsListView.Items.AddRange(items);
         }
 
         /// <summary>
