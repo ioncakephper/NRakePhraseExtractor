@@ -173,7 +173,9 @@ namespace WindowsFormsApp5
         private void PopulatePhraseListView(Phrases phrases, string filter)
         {
             phrasesListView.Items.Clear();
-            phrasesListView.Items.AddRange(GetFilteredAllPhraseListViewItems(phrases, filter));
+
+            ListViewItem[] items = phrases.Select(phrase => GetSinglePhraseListViewItem(phrase)).Where(item => ContainsFilter(item, filter)).ToArray();
+            phrasesListView.Items.AddRange(items);
         }
 
         /// <summary>
