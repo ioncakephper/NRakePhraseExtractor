@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsControlLibrary1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRakeCore", "NRakeCore\NRakeCore.csproj", "{1D4AF0C3-15F6-48BF-B12D-39C7802172D9}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PhraseExtractorSetup", "PhraseExtractorSetup\PhraseExtractorSetup.vdproj", "{F4000497-65F9-4CBF-BC97-C30A58394694}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,8 @@ Global
 		{1D4AF0C3-15F6-48BF-B12D-39C7802172D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D4AF0C3-15F6-48BF-B12D-39C7802172D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D4AF0C3-15F6-48BF-B12D-39C7802172D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4000497-65F9-4CBF-BC97-C30A58394694}.Debug|Any CPU.ActiveCfg = Debug
+		{F4000497-65F9-4CBF-BC97-C30A58394694}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

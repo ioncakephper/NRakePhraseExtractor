@@ -1,16 +1,17 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("WindowsFormsApp5")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Phrase Extractor")]
+[assembly: AssemblyDescription("Phrase Extractor extracts key phrases from HTML files and generates the index file compatible with HTML Help Workshop projects. It shortens the time and effort needed in the final phase of Help Authoring by generating the index file to add to a HTML Help Workshop project.")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Weblidity")]
 [assembly: AssemblyProduct("WindowsFormsApp5")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
+[assembly: AssemblyCopyright("Copyright © 2018 Weblidity Software. All rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -34,3 +35,5 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("29.0.0.319")]
 [assembly: AssemblyFileVersion("29.0.0.319")]
+[assembly: NeutralResourcesLanguage("en-US")]
+
