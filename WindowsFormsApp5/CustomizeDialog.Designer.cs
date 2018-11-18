@@ -1,11 +1,70 @@
-﻿namespace WindowsFormsApp5
+﻿//------------------------------------------------------------------------------
+// <copyright file="CustomizeDialog.Designer.cs" company="Ion Gireada">
+//      Copyright (c) Ion Gireada. All rights reserved.
+// </copyright>
+//------------------------------------------------------------------------------
+
+namespace WindowsFormsApp5
 {
-    partial class CustomizeDialog
+    /// <summary>
+    /// Defines the <see cref="CustomizeDialog" />
+    /// </summary>
+    public partial class CustomizeDialog
     {
+        /// <summary>
+        /// Defines the button1
+        /// </summary>
+        private System.Windows.Forms.Button button1;
+
+        /// <summary>
+        /// Defines the button2
+        /// </summary>
+        private System.Windows.Forms.Button button2;
+
+        /// <summary>
+        /// Defines the button4
+        /// </summary>
+        private System.Windows.Forms.Button button4;
+
+        /// <summary>
+        /// Defines the cancelButton
+        /// </summary>
+        private System.Windows.Forms.Button cancelButton;
+
         /// <summary>
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Defines the helpButton
+        /// </summary>
+        private System.Windows.Forms.Button helpButton;
+
+        /// <summary>
+        /// Defines the listView1
+        /// </summary>
+        private System.Windows.Forms.ListView listView1;
+
+        /// <summary>
+        /// Defines the panel1
+        /// </summary>
+        private System.Windows.Forms.Panel panel1;
+
+        /// <summary>
+        /// Defines the tabControl1
+        /// </summary>
+        private System.Windows.Forms.TabControl tabControl1;
+
+        /// <summary>
+        /// Defines the tabPage1
+        /// </summary>
+        private System.Windows.Forms.TabPage tabPage1;
+
+        /// <summary>
+        /// Defines the tabPage2
+        /// </summary>
+        private System.Windows.Forms.TabPage tabPage2;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -19,8 +78,6 @@
             }
             base.Dispose(disposing);
         }
-
-        #region Windows Form Designer generated code
 
         /// <summary>
         /// Required method for Designer support - do not modify
@@ -66,8 +123,8 @@
             // 
             // panel1
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.panel1.Controls.Add(this.tabControl1);
             this.panel1.Location = new System.Drawing.Point(12, 12);
@@ -111,8 +168,8 @@
             // 
             // listView1
             // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.listView1.Location = new System.Drawing.Point(6, 6);
             this.listView1.Name = "listView1";
@@ -166,20 +223,6 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
-
-        #endregion
-        private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Button helpButton;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Button button4;
     }
 }
-

@@ -6,18 +6,15 @@
 
 namespace WindowsFormsApp5
 {
+    using NRakeCore;
     using System.Collections.Generic;
+    using System.Linq;
 
     /// <summary>
     /// Defines the <see cref="Phrase" />
     /// </summary>
     public class Phrase
     {
-        /// <summary>
-        /// Defines the v
-        /// </summary>
-        private int v;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="Phrase"/> class.
         /// </summary>
@@ -50,6 +47,19 @@ namespace WindowsFormsApp5
         }
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="Phrase"/> class.
+        /// </summary>
+        /// <param name="keyword">The keyword<see cref="string"/></param>
+        /// <param name="aggregatedLeagueTable">The aggregatedLeagueTable<see cref="SortedList{string, double}"/></param>
+        /// <param name="topics">The topics<see cref="Topics"/></param>
+        /// <param name="stopFilter">The stopFilter<see cref="NRakeCore.StopWordFilters.IStopWordFilter"/></param>
+        /// <param name="rank">The rank<see cref="int"/></param>
+        public Phrase(string keyword, SortedList<string, double> aggregatedLeagueTable, Topics topics, NRakeCore.StopWordFilters.IStopWordFilter stopFilter, int rank) : this(keyword, aggregatedLeagueTable, rank)
+        {
+            Topics.AddRange(topics.Where(topic => TopicKeywords(topic, stopFilter).Contains(keyword)).ToArray());
+        }
+
+        /// <summary>
         /// Gets the Rank
         /// </summary>
         public int Rank { get; private set; }
@@ -72,6 +82,18 @@ namespace WindowsFormsApp5
         /// <summary>
         /// Gets the Words
         /// </summary>
-        public string[] Words { get; private set; } = new string[] { };
+        public string[] Words { get; private set; }
+
+        /// <summary>
+        /// The TopicKeywords
+        /// </summary>
+        /// <param name="topic">The topic<see cref="Topic"/></param>
+        /// <param name="stopFilter">The stopFilter<see cref="NRakeCore.StopWordFilters.IStopWordFilter"/></param>
+        /// <returns>The <see cref="string[]"/></returns>
+        private string[] TopicKeywords(Topic topic, NRakeCore.StopWordFilters.IStopWordFilter stopFilter)
+        {
+            var tke = new KeywordExtractor(stopFilter);
+            return tke.FindKeyPhrases(topic.GetText());
+        }
     }
 }

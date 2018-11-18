@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApp5
+﻿using WindowsFormsControlLibrary1;
+
+namespace WindowsFormsApp5
 {
     partial class TopicsDialog
     {
@@ -34,7 +36,7 @@
             this.helpButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.topicsListView = new System.Windows.Forms.ListView();
+            this.topicsListView = new WindowsFormsControlLibrary1.SmartListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -101,6 +103,7 @@
             // 
             // topicsListView
             // 
+            this.topicsListView.AllowColumnReorder = true;
             this.topicsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
@@ -130,6 +133,7 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Path";
+            this.columnHeader4.Width = 413;
             // 
             // button2
             // 
@@ -183,7 +187,7 @@
         private System.Windows.Forms.Button helpButton;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.ListView topicsListView;
+        private SmartListView topicsListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;

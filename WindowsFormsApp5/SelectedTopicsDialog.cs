@@ -36,7 +36,7 @@ namespace WindowsFormsApp5
         /// <summary>
         /// Gets or sets the Topics
         /// </summary>
-        public Topics Topics { get; set; }
+        public Topics Topics { get; set; } = new Topics();
 
         /// <summary>
         /// The button4_Click

@@ -6,10 +6,9 @@
 
 namespace WindowsFormsApp5
 {
-    using NRakeCore;
     using System;
-    using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Windows.Forms;
     using System.Xml;
 
@@ -85,30 +84,29 @@ namespace WindowsFormsApp5
         {
             var li = doc.CreateElement("LI");
 
-            var objectElement = doc.CreateElement("object");
-            objectElement.SetAttribute("type", "text/sitemap");
 
-            var paramPhrase = doc.CreateElement("param");
-            paramPhrase.SetAttribute("name", "Name");
-            paramPhrase.SetAttribute("value", phrase.Text);
 
-            objectElement.AppendChild(paramPhrase);
+            string s = string.Format("<OBJECT type=\"text/sitemap\">\r\n<param name=\"Name\" value=\"{0}\">", phrase.Text);
 
-            foreach (Topic topic in GetTopicsOf(phrase))
+            StringBuilder sb = new StringBuilder();
+            sb.Append(doc.CreateElement("NEWOBJECT").ToString()).Append("OBJECT type=\"text/sitemap\"").Append('>');
+            sb.AppendLine();
+            sb.Append(string.Format("<param name=\"Name\" value=\"{0}\">", phrase.Text));
+            sb.AppendLine();
+
+            foreach (Topic topic in phrase.Topics)
             {
-                var paramName = doc.CreateElement("param");
-                paramName.SetAttribute("name", "Name");
-                paramName.SetAttribute("value", topic.Title);
+                sb.AppendFormat("<param name=\"Name\" value=\"{0}\">", topic.Title);
+                sb.AppendLine();
 
-                var paramLocal = doc.CreateElement("param");
-                paramLocal.SetAttribute("name", "Local");
-                paramLocal.SetAttribute("value", topic.Filepath);
+                sb.AppendFormat("<param name=\"Local\" value=\"{0}\">", topic.Filepath);
+                sb.AppendLine();
 
-                objectElement.AppendChild(paramName);
-                objectElement.AppendChild(paramLocal);
             }
 
-            li.AppendChild(objectElement);
+            sb.Append("</OBJECT>"); sb.AppendLine();
+
+            li.InnerText = s;
             return li;
         }
 
@@ -132,8 +130,6 @@ namespace WindowsFormsApp5
             {
                 var fileName = saveFileDialog1.FileName;
 
-                var webBrowser = new WebBrowser();
-                // var doc = webBrowser.Document;
                 var doc = new XmlDocument();
 
                 var html = doc.CreateElement("HTML");
@@ -162,6 +158,39 @@ namespace WindowsFormsApp5
                 doc.AppendChild(html);
 
                 doc.Save(fileName);
+
+                string template = @"<!DOCTYPE HTML PUBLIC "" -//IETF//DTD HTML//EN"">
+<HTML>
+< HEAD>
+    <meta name=""Generator"" value=""Microsoft HTML Help Workshop 1.4"">
+    <!-- Sitemap 1.0 --> 
+</HEAD><BODY>
+<UL>
+{0}
+</UL>
+</BODY></HTML>";
+
+                StringBuilder sb = new StringBuilder();
+                foreach (var phrase in Corpus.Phrases)
+                {
+                    StringBuilder topicsBuilder = new StringBuilder();
+
+                    foreach (var topic in phrase.Topics)
+                    {
+                        topicsBuilder.AppendFormat(@"       <param name=""Name"" value=""{0}"">
+                <param name=""Local"" value=""{1}"">
+                <param name=""URL"" value=""{1}"">
+", topic.Title, topic.Filename);
+                    }
+
+                    sb.AppendFormat(@"  <LI><OBJECT type=""text/sitemap"">
+        <param name=""Name"" value=""{0}"">
+{1}
+        </OBJECT>
+", phrase.Text, topicsBuilder.ToString());
+                }
+
+                System.IO.File.WriteAllText(fileName, string.Format(template, sb.ToString()));
             }
         }
 
@@ -188,23 +217,6 @@ namespace WindowsFormsApp5
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = changeDetector1.RequestDecision();
-        }
-
-        /// <summary>
-        /// The GetPhraseTopics
-        /// </summary>
-        /// <param name="phrase">The phrase<see cref="Phrase"/></param>
-        /// <param name="topics">The topics<see cref="Topics"/></param>
-        /// <param name="singleKeywordExtractor">The singleKeywordExtractor<see cref="KeywordExtractor"/></param>
-        private void GetPhraseTopics(Phrase phrase, Topics topics, KeywordExtractor singleKeywordExtractor)
-        {
-            foreach (var topic in topics)
-            {
-                if (singleKeywordExtractor.FindKeyPhrases(topic.GetText()).Contains(phrase.Text))
-                {
-                    phrase.Topics.Add(topic);
-                }
-            }
         }
 
         /// <summary>
@@ -250,23 +262,10 @@ namespace WindowsFormsApp5
         /// <returns>The <see cref="Phrases"/></returns>
         private Phrases GetTopicPhrases(Topics topics)
         {
+            var phrases = new Phrases();
             CollectionKeywordExtractor kwe = new CollectionKeywordExtractor(topics);
-            var singleKeywordExtractor = new KeywordExtractor(kwe.StopWordFilter);
-            var phrases = new Phrases(kwe.FindPhrases(kwe.GetText()));
-
-            phrases.ForEach(phrase => GetPhraseTopics(phrase, topics, singleKeywordExtractor));
-
+            phrases.AddRange(kwe.FindAllKeyPhrases());
             return phrases;
-        }
-
-        /// <summary>
-        /// The GetTopicsOf
-        /// </summary>
-        /// <param name="phrase">The phrase<see cref="Phrase"/></param>
-        /// <returns>The <see cref="IEnumerable{Topic}"/></returns>
-        private IEnumerable<Topic> GetTopicsOf(Phrase phrase)
-        {
-            return new Topic[] { new WindowsFormsApp5.Topic() { Title = "Sample", Filepath = @"C:\Users\shytiger\Documents\sample.html" }, new WindowsFormsApp5.Topic() { Title = "Sample", Filepath = @"C:\Users\shytiger\Documents\sample.html" } };
         }
 
         /// <summary>

@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApp5
+﻿using WindowsFormsControlLibrary1;
+
+namespace WindowsFormsApp5
 {
     partial class SelectedTopicsDialog
     {
@@ -34,7 +36,7 @@
             this.helpButton = new System.Windows.Forms.Button();
             this.changeDetector1 = new WindowsFormsControlLibrary1.ChangeDetector(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.topicListView = new System.Windows.Forms.ListView();
+            this.topicListView = new WindowsFormsControlLibrary1.SmartListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -125,6 +127,7 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Path";
+            this.columnHeader4.Width = 415;
             // 
             // button3
             // 
@@ -204,7 +207,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.ListView topicListView;
+        private SmartListView topicListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;

@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="CollectionKeywordExtractor.cs" company="Ion Giread">
+// <copyright file="collectionkeywordextractor.cs" company="Ion Gireada">
 //      Copyright (c) Ion Gireada. All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
@@ -7,6 +7,7 @@
 namespace WindowsFormsApp5
 {
     using NRakeCore;
+    using System.Collections.Generic;
     using System.Linq;
     using System.Text;
 
@@ -56,6 +57,18 @@ namespace WindowsFormsApp5
             }
 
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// The FindAllKeyPhrases
+        /// </summary>
+        /// <returns>The <see cref="IEnumerable{Phrase}"/></returns>
+        internal IEnumerable<Phrase> FindAllKeyPhrases()
+        {
+            var keyphrases = FindKeyPhrases(GetText());
+
+            int rank = 0;
+            return keyphrases.Select(keyPhrase => new Phrase(keyPhrase, AggregatedLeagueTable, topics, StopWordFilter, ++rank)).Where(phrase => phrase.Topics.Count > 0).ToArray();
         }
     }
 }

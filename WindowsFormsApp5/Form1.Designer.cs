@@ -1,4 +1,6 @@
-﻿namespace WindowsFormsApp5
+﻿using WindowsFormsControlLibrary1;
+
+namespace WindowsFormsApp5
 {
     partial class Form1
     {
@@ -73,17 +75,17 @@
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.phrasesListView = new System.Windows.Forms.ListView();
+            this.phrasesListView = new WindowsFormsControlLibrary1.SmartListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.toolStripButton3 = new System.Windows.Forms.ToolStripButton();
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.changeDetector1 = new WindowsFormsControlLibrary1.ChangeDetector(this.components);
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.changeDetector1 = new WindowsFormsControlLibrary1.ChangeDetector(this.components);
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -450,6 +452,16 @@
             this.toolStripButton2.Text = "Extract";
             this.toolStripButton2.Click += new System.EventHandler(this.toolStripButton2_Click);
             // 
+            // toolStripButton3
+            // 
+            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
+            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton3.Name = "toolStripButton3";
+            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton3.Text = "Export";
+            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
+            // 
             // statusStrip1
             // 
             this.statusStrip1.Location = new System.Drawing.Point(0, 428);
@@ -489,26 +501,6 @@
             this.columnHeader1.Text = "Phrase";
             this.columnHeader1.Width = 193;
             // 
-            // toolStripButton3
-            // 
-            this.toolStripButton3.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.toolStripButton3.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton3.Image")));
-            this.toolStripButton3.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton3.Name = "toolStripButton3";
-            this.toolStripButton3.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton3.Text = "Export";
-            this.toolStripButton3.Click += new System.EventHandler(this.toolStripButton3_Click);
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "hhk";
-            this.saveFileDialog1.Filter = "All files(*.*)|*.*|Index files(*.hhk)|*.hhk";
-            this.saveFileDialog1.FilterIndex = 2;
-            // 
-            // changeDetector1
-            // 
-            this.changeDetector1.DialogResult = System.Windows.Forms.DialogResult.None;
-            // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Rank";
@@ -524,6 +516,17 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "Score";
+            this.columnHeader5.Width = 423;
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "hhk";
+            this.saveFileDialog1.Filter = "All files(*.*)|*.*|Index files(*.hhk)|*.hhk";
+            this.saveFileDialog1.FilterIndex = 2;
+            // 
+            // changeDetector1
+            // 
+            this.changeDetector1.DialogResult = System.Windows.Forms.DialogResult.None;
             // 
             // Form1
             // 
@@ -594,7 +597,8 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripButton toolStripButton1;
         private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.ListView phrasesListView;
+        // private System.Windows.Forms.ListView phrasesListView;
+        private SmartListView phrasesListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private WindowsFormsControlLibrary1.ChangeDetector changeDetector1;
         private System.Windows.Forms.ToolStripButton toolStripButton2;

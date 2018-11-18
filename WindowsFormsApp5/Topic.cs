@@ -76,12 +76,22 @@ namespace WindowsFormsApp5
         /// <returns>The <see cref="string"/></returns>
         public string GetText()
         {
-            // From File
-            var doc = new HtmlDocument();
-            doc.Load(_filepath);
+            string text = Title;
 
-            var node = doc.DocumentNode.SelectSingleNode("//body");
-            string text = (node == null) ? string.Empty : node.InnerText;
+            try
+            {
+                // From File
+                var doc = new HtmlDocument();
+                doc.Load(_filepath);
+
+                var node = doc.DocumentNode.SelectSingleNode("//body");
+                text += (node == null) ? string.Empty : " " + node.InnerText;
+            }
+            catch (System.Exception)
+            {
+
+                text = Title;
+            }
 
             return text;
         }
