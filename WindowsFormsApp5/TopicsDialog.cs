@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="TopicsDialog.cs" company="Ion Gireada">
+// <copyright file="topicsdialog.cs" company="Ion Gireada">
 //      Copyright (c) Ion Gireada. All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
@@ -38,6 +38,40 @@ namespace WindowsFormsApp5
         public Topics Topics { get; set; }
 
         /// <summary>
+        /// The AddRelativePath
+        /// </summary>
+        /// <param name="tocPath">The tocPath<see cref="string"/></param>
+        /// <param name="tocFile">The tocFile<see cref="string"/></param>
+        /// <returns>The <see cref="string"/></returns>
+        private string AddRelativePath(string tocPath, string tocFile)
+        {
+            // TODO: Get relative path from tocPath to tocFile. Make sure NO trailing \
+            string relativePath = tocPath;
+            return string.Format(@"{0}\{1}", relativePath, tocFile);
+        }
+
+        /// <summary>
+        /// The AddTopicFiles
+        /// </summary>
+        /// <param name="fileNames">The fileNames<see cref="string[]"/></param>
+        private void AddTopicFiles(string[] fileNames)
+        {
+            Topics.AddRange(fileNames.Select(filePath => new Topic(filePath)).ToArray());
+            PopulateTopicsListView(Topics);
+            changeDetector1.Changed = true;
+        }
+
+        /// <summary>
+        /// The AddTopicsFromToc
+        /// </summary>
+        /// <param name="tocFileName">The tocFileName<see cref="string"/></param>
+        private void AddTopicsFromToc(string tocFileName)
+        {
+            string[] topicFileNames = GetTopicFileNames(tocFileName);
+            AddTopicFiles(topicFileNames);
+        }
+
+        /// <summary>
         /// The button1_Click
         /// </summary>
         /// <param name="sender">The sender<see cref="object"/></param>
@@ -48,9 +82,21 @@ namespace WindowsFormsApp5
             if (openFileDialog1.ShowDialog().Equals(DialogResult.OK))
             {
                 var fileNames = openFileDialog1.FileNames;
-                Topics.AddRange(fileNames.Select(filePath => new Topic(filePath)).ToArray());
-                PopulateTopicsListView(Topics);
-                changeDetector1.Changed = true;
+                AddTopicFiles(fileNames);
+            }
+        }
+
+        /// <summary>
+        /// The button2_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="System.EventArgs"/></param>
+        private void button2_Click(object sender, System.EventArgs e)
+        {
+            openFileDialog2.FileName = string.Empty;
+            if (openFileDialog2.ShowDialog().Equals(DialogResult.OK))
+            {
+                AddTopicsFromToc(openFileDialog2.FileName);
             }
         }
 
@@ -108,6 +154,34 @@ namespace WindowsFormsApp5
             item.SubItems.AddRange(subItems);
 
             return item;
+        }
+
+        /// <summary>
+        /// The GetTopicFileNames
+        /// </summary>
+        /// <param name="tocFileName">The tocFileName<see cref="string"/></param>
+        /// <returns>The <see cref="string[]"/></returns>
+        private string[] GetTopicFileNames(string tocFileName)
+        {
+            if (!System.IO.File.Exists(tocFileName))
+            {
+                throw new InvalidFilenameException(tocFileName);
+            }
+            string tocPath = System.IO.Path.GetDirectoryName(tocFileName);
+
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.Load(tocFileName);
+
+            string[] topicFileNames = new string[] { };
+
+            var paramNodes = doc.DocumentNode.SelectNodes("//param").ToArray();
+            if (paramNodes != null)
+            {
+                string[] tocfiles = paramNodes.Where(p => p.Attributes["name"].Value.Equals("Local")).Select(p => p.Attributes["value"].Value).ToArray();
+                topicFileNames = tocfiles.Select(tocFile => AddRelativePath(tocPath, tocFile)).ToArray();
+            }
+
+            return topicFileNames;
         }
 
         /// <summary>
