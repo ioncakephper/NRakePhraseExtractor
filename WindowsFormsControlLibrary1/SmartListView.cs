@@ -13,6 +13,7 @@ namespace WindowsFormsControlLibrary1
     /// </summary>
     public partial class SmartListView : ListView
     {
+
         /// <summary>
         /// Defines the sortingColumn
         /// </summary>

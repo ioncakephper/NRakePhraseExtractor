@@ -480,6 +480,7 @@ namespace WindowsFormsApp5
             // 
             // phrasesListView
             // 
+            this.phrasesListView.AllowColumnReorder = true;
             this.phrasesListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,

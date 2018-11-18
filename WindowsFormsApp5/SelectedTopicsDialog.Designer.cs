@@ -97,6 +97,7 @@ namespace WindowsFormsApp5
             // 
             // topicListView
             // 
+            this.topicListView.AllowColumnReorder = true;
             this.topicListView.CheckBoxes = true;
             this.topicListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
