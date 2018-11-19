@@ -1,20 +1,81 @@
-﻿using System;
-using System.Collections;
-using System.Windows.Forms;
+﻿//------------------------------------------------------------------------------------
+// <copyright file="ListViewComparer.cs" company="Ion Gireada">
+//    Copyright (c) 2018 Ion Gireada
+// </copyright>
+//------------------------------------------------------------------------------------
 
 namespace WindowsFormsControlLibrary1
 {
+    using System;
+    using System.Collections;
+    using System.Windows.Forms;
+
+    /// <summary>
+    /// Defines the <see cref="ListViewComparer" />
+    /// </summary>
     internal class ListViewComparer : IComparer
     {
+        /// <summary>
+        /// Defines the columnNumber
+        /// </summary>
         private int columnNumber;
+
+        /// <summary>
+        /// Gets or sets the SortColumn
+        /// </summary>
+        public int SortColumn
+        {
+            get { return columnNumber; }
+            set { columnNumber = value; }
+        }
+
+        /// <summary>
+        /// Defines the sortOrder
+        /// </summary>
         private SortOrder sortOrder;
 
+        /// <summary>
+        /// Gets or sets the Order
+        /// </summary>
+        public SortOrder Order
+        {
+            get { return sortOrder; }
+            set { sortOrder = value; }
+        }
+
+        /// <summary>
+        /// Defines the listViewItemComparer
+        /// </summary>
+        private Comparer listViewItemComparer;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListViewComparer"/> class.
+        /// </summary>
+        /// <param name="column">The column<see cref="int"/></param>
+        /// <param name="sortOrder">The sortOrder<see cref="SortOrder"/></param>
         public ListViewComparer(int column, SortOrder sortOrder)
         {
             this.columnNumber = column;
+            SortColumn = columnNumber;
             this.sortOrder = sortOrder;
+            Order = this.sortOrder;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ListViewComparer"/> class.
+        /// </summary>
+        public ListViewComparer()
+        {
+            SortColumn = 0;
+            Order = SortOrder.None;
+        }
+
+        /// <summary>
+        /// The Compare
+        /// </summary>
+        /// <param name="x">The x<see cref="object"/></param>
+        /// <param name="y">The y<see cref="object"/></param>
+        /// <returns>The <see cref="int"/></returns>
         public int Compare(object x, object y)
         {
             // Get the objects as ListViewItems.

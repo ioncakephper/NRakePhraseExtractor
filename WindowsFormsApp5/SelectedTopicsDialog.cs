@@ -87,10 +87,10 @@ namespace WindowsFormsApp5
             var item = new ListViewItem(topic.Title);
             item.Tag = topic;
             item.Checked = true;
-            var subItems = new string[topicListView.Columns.Count - 1];
+            var subItems = new string[topicsListView.Columns.Count - 1];
             for (int i = 0; i < subItems.Length; i++)
             {
-                switch (topicListView.Columns[i + 1].Text)
+                switch (topicsListView.Columns[i + 1].Text)
                 {
                     case "Filename":
                         subItems[i] = topic.Filename;
@@ -127,10 +127,26 @@ namespace WindowsFormsApp5
         /// <param name="filter">The filter<see cref="string"/></param>
         private void PopulateTopicsListView(Topics topics, string filter)
         {
-            topicListView.Items.Clear();
+            topicsListView.Items.Clear();
 
             ListViewItem[] items = topics.Select(topic => GetSingleTopicListViewItem(topic)).Where(item => ContainsFilter(item, filter)).ToArray();
-            topicListView.Items.AddRange(items);
+            topicsListView.Items.AddRange(items);
+
+            var allControls = new Control[] { checkAllButton, uncheckAllButton, okButton };
+            bool isTopicsListViewEmpty = topicsListView.Items.Count.Equals(0);
+            SetFormControlsEnabledStatusOnCondition(isTopicsListViewEmpty, false, allControls);
+        }
+
+        /// <summary>
+        /// The SetFormControlsEnabledStatusOnCondition
+        /// </summary>
+        /// <param name="condition">The condition<see cref="bool"/></param>
+        /// <param name="statusOnConditionTrue">The statusOnConditionTrue<see cref="bool"/></param>
+        /// <param name="controls">The controls<see cref="Control[]"/></param>
+        private void SetFormControlsEnabledStatusOnCondition(bool condition, bool statusOnConditionTrue, Control[] controls)
+        {
+            var status = (condition) ? statusOnConditionTrue : !statusOnConditionTrue;
+            controls.ToList().ForEach(b => b.Enabled = status);
         }
 
         /// <summary>
@@ -154,6 +170,21 @@ namespace WindowsFormsApp5
         private void SelectedTopicsDialog_Load(object sender, EventArgs e)
         {
             PopulateTopicsListView(Topics);
+            checkButton.Enabled = false;
+            uncheckButton.Enabled = false;
+            toggleButton.Enabled = false;
+        }
+
+        /// <summary>
+        /// The topicsListView_SelectedIndexChanged
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
+        private void topicsListView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool isSelectedItemsEmpty = topicsListView.SelectedItems.Count.Equals(0);
+            var contextControls = new Control[] { checkButton, uncheckButton, toggleButton };
+            SetFormControlsEnabledStatusOnCondition(isSelectedItemsEmpty, false, contextControls);
         }
     }
 }

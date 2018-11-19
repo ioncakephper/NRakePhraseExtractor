@@ -204,6 +204,18 @@ namespace WindowsFormsApp5
 
             ListViewItem[] items = topics.Select(topic => GetSingleTopicListViewItem(topic)).Where(item => ContainsFilter(item, filter)).ToArray();
             topicsListView.Items.AddRange(items);
+            SetFormControlsEnabledStatus(topicsListView.Items.Count.Equals(0));
+        }
+
+        /// <summary>
+        /// The SetFormControlsEnabledStatus
+        /// </summary>
+        /// <param name="isListViewEmpty">The isListViewEmpty<see cref="bool"/></param>
+        private void SetFormControlsEnabledStatus(bool isListViewEmpty)
+        {
+            var status = !(isListViewEmpty);
+            var controls = new Control[] { removeButton };
+            controls.ToList().ForEach(b => b.Enabled = status);
         }
 
         /// <summary>
@@ -227,6 +239,24 @@ namespace WindowsFormsApp5
         private void TopicsDialog_Load(object sender, System.EventArgs e)
         {
             PopulateTopicsListView(Topics);
+        }
+
+        /// <summary>
+        /// The button3_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="System.EventArgs"/></param>
+        private void button3_Click(object sender, System.EventArgs e)
+        {
+            if (topicsListView.SelectedItems.Count > 0)
+            {
+                foreach (ListViewItem item in topicsListView.SelectedItems)
+                {
+                    int index = Topics.IndexOf((Topic)item.Tag);
+                    Topics.RemoveAt(index);
+                }
+                PopulateTopicsListView(Topics);
+            }
         }
     }
 }

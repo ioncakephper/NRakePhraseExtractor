@@ -36,16 +36,16 @@ namespace WindowsFormsApp5
             this.helpButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.removeButton = new System.Windows.Forms.Button();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.topicsListView = new WindowsFormsControlLibrary1.SmartListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button2 = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.changeDetector1 = new WindowsFormsControlLibrary1.ChangeDetector(this.components);
-            this.button3 = new System.Windows.Forms.Button();
-            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -103,6 +103,41 @@ namespace WindowsFormsApp5
             this.panel1.Size = new System.Drawing.Size(556, 403);
             this.panel1.TabIndex = 1;
             // 
+            // button2
+            // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button2.Location = new System.Drawing.Point(574, 41);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(116, 23);
+            this.button2.TabIndex = 3;
+            this.button2.Text = "Add from TOC...";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.Filter = "All files(*.*)|*.*|HTML files(*.htm;*.html)|*.htm;*.html";
+            this.openFileDialog1.FilterIndex = 2;
+            this.openFileDialog1.Multiselect = true;
+            // 
+            // removeButton
+            // 
+            this.removeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.removeButton.Location = new System.Drawing.Point(574, 70);
+            this.removeButton.Name = "removeButton";
+            this.removeButton.Size = new System.Drawing.Size(116, 23);
+            this.removeButton.TabIndex = 4;
+            this.removeButton.Text = "Remove";
+            this.removeButton.UseVisualStyleBackColor = true;
+            this.removeButton.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // openFileDialog2
+            // 
+            this.openFileDialog2.DefaultExt = "hhc";
+            this.openFileDialog2.FileName = "openFileDialog2";
+            this.openFileDialog2.Filter = "All files(*.*)|*.*|TOC files(*.hhc)|*.hhc";
+            this.openFileDialog2.FilterIndex = 2;
+            // 
             // topicsListView
             // 
             this.topicsListView.AllowColumnReorder = true;
@@ -137,43 +172,9 @@ namespace WindowsFormsApp5
             this.columnHeader4.Text = "Path";
             this.columnHeader4.Width = 372;
             // 
-            // button2
-            // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(574, 41);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(116, 23);
-            this.button2.TabIndex = 3;
-            this.button2.Text = "Add from TOC...";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // openFileDialog1
-            // 
-            this.openFileDialog1.Filter = "All files(*.*)|*.*|HTML files(*.htm;*.html)|*.htm;*.html";
-            this.openFileDialog1.FilterIndex = 2;
-            this.openFileDialog1.Multiselect = true;
-            // 
             // changeDetector1
             // 
             this.changeDetector1.DialogResult = System.Windows.Forms.DialogResult.None;
-            // 
-            // button3
-            // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(574, 70);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(116, 23);
-            this.button3.TabIndex = 4;
-            this.button3.Text = "Remove";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // openFileDialog2
-            // 
-            this.openFileDialog2.DefaultExt = "hhc";
-            this.openFileDialog2.FileName = "openFileDialog2";
-            this.openFileDialog2.Filter = "All files(*.*)|*.*|TOC files(*.hhc)|*.hhc";
-            this.openFileDialog2.FilterIndex = 2;
             // 
             // TopicsDialog
             // 
@@ -182,7 +183,7 @@ namespace WindowsFormsApp5
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(702, 456);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.removeButton);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
@@ -216,7 +217,7 @@ namespace WindowsFormsApp5
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private WindowsFormsControlLibrary1.ChangeDetector changeDetector1;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
     }
 }

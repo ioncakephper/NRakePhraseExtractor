@@ -14,9 +14,9 @@ namespace WindowsFormsControlLibrary1
     public partial class SmartListView : ListView
     {
         /// <summary>
-        /// Defines the sortingColumn
+        /// Defines the listColumnSorter
         /// </summary>
-        private ColumnHeader sortingColumn = null;
+        private ListViewComparer listColumnSorter;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SmartListView"/> class.
@@ -24,6 +24,9 @@ namespace WindowsFormsControlLibrary1
         public SmartListView()
         {
             InitializeComponent();
+            this.listColumnSorter = new ListViewComparer(0, SortOrder.None);
+            this.ListViewItemSorter = listColumnSorter;
+            this.SetSortIcon(listColumnSorter.SortColumn, listColumnSorter.Order);
         }
 
         /// <summary>
@@ -42,6 +45,16 @@ namespace WindowsFormsControlLibrary1
                     if (this.View == View.Details && this.Columns.Count > 0)
                     {
                         this.Columns[this.Columns.Count - 1].Width = -2;
+
+                        // capture first time columns are painted,
+                        // and set first column as sorting column
+                        // Order is None only on the first run of this method.
+                        if (listColumnSorter.Order == SortOrder.None)
+                        {
+                            listColumnSorter.SortColumn = 0;
+                            listColumnSorter.Order = SortOrder.Ascending;
+                            this.SetSortIcon(listColumnSorter.SortColumn, listColumnSorter.Order);
+                        }
                     }
                     break;
             }
@@ -57,39 +70,28 @@ namespace WindowsFormsControlLibrary1
         /// <param name="e">The e<see cref="ColumnClickEventArgs"/></param>
         private void SmartListView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            ColumnHeader newSortingColumn = this.Columns[e.Column];
-            System.Windows.Forms.SortOrder sortOrder;
-
-            if (sortingColumn == null)
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == listColumnSorter.SortColumn)
             {
-                sortOrder = SortOrder.Ascending;
-            }
-            else
-            {
-                if (newSortingColumn == sortingColumn)
+                // Reverse the current sort direction for this column.
+                if (listColumnSorter.Order == SortOrder.Ascending)
                 {
-                    sortOrder = (sortingColumn.Text.StartsWith("> ")) ? SortOrder.Descending : SortOrder.Ascending;
+                    listColumnSorter.Order = SortOrder.Descending;
                 }
                 else
                 {
-                    sortOrder = SortOrder.Ascending;
+                    listColumnSorter.Order = SortOrder.Ascending;
                 }
-
-                sortingColumn.Text = sortingColumn.Text.Substring(2);
-            }
-
-            sortingColumn = newSortingColumn;
-            if (sortOrder == SortOrder.Ascending)
-            {
-                sortingColumn.Text = "> " + sortingColumn.Text;
             }
             else
             {
-                sortingColumn.Text = "< " + sortingColumn.Text;
+                // Set the column number that is to be sorted; default to ascending.
+                listColumnSorter.SortColumn = e.Column;
+                listColumnSorter.Order = SortOrder.Ascending;
             }
 
-            this.ListViewItemSorter = new ListViewComparer(e.Column, sortOrder);
             Sort();
+            this.SetSortIcon(listColumnSorter.SortColumn, listColumnSorter.Order);
         }
     }
 }

@@ -36,15 +36,17 @@ namespace WindowsFormsApp5
             this.helpButton = new System.Windows.Forms.Button();
             this.changeDetector1 = new WindowsFormsControlLibrary1.ChangeDetector(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.topicListView = new WindowsFormsControlLibrary1.SmartListView();
+            this.topicsListView = new WindowsFormsControlLibrary1.SmartListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.toggleButton = new System.Windows.Forms.Button();
+            this.uncheckAllButton = new System.Windows.Forms.Button();
+            this.checkAllButton = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.checkButton = new System.Windows.Forms.Button();
+            this.uncheckButton = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,7 +57,7 @@ namespace WindowsFormsApp5
             this.okButton.Location = new System.Drawing.Point(455, 329);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
-            this.okButton.TabIndex = 2;
+            this.okButton.TabIndex = 9;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
             // 
@@ -76,7 +78,7 @@ namespace WindowsFormsApp5
             this.helpButton.Location = new System.Drawing.Point(374, 329);
             this.helpButton.Name = "helpButton";
             this.helpButton.Size = new System.Drawing.Size(75, 23);
-            this.helpButton.TabIndex = 1;
+            this.helpButton.TabIndex = 8;
             this.helpButton.Text = "Help";
             this.helpButton.UseVisualStyleBackColor = true;
             // 
@@ -89,29 +91,30 @@ namespace WindowsFormsApp5
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.topicListView);
+            this.panel1.Controls.Add(this.topicsListView);
             this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(599, 282);
-            this.panel1.TabIndex = 3;
+            this.panel1.TabIndex = 1;
             // 
-            // topicListView
+            // topicsListView
             // 
-            this.topicListView.AllowColumnReorder = true;
-            this.topicListView.CheckBoxes = true;
-            this.topicListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.topicsListView.AllowColumnReorder = true;
+            this.topicsListView.CheckBoxes = true;
+            this.topicsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3,
             this.columnHeader4});
-            this.topicListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.topicListView.FullRowSelect = true;
-            this.topicListView.Location = new System.Drawing.Point(0, 0);
-            this.topicListView.Name = "topicListView";
-            this.topicListView.Size = new System.Drawing.Size(599, 282);
-            this.topicListView.TabIndex = 0;
-            this.topicListView.UseCompatibleStateImageBehavior = false;
-            this.topicListView.View = System.Windows.Forms.View.Details;
+            this.topicsListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.topicsListView.FullRowSelect = true;
+            this.topicsListView.Location = new System.Drawing.Point(0, 0);
+            this.topicsListView.Name = "topicsListView";
+            this.topicsListView.Size = new System.Drawing.Size(599, 282);
+            this.topicsListView.TabIndex = 0;
+            this.topicsListView.UseCompatibleStateImageBehavior = false;
+            this.topicsListView.View = System.Windows.Forms.View.Details;
+            this.topicsListView.SelectedIndexChanged += new System.EventHandler(this.topicsListView_SelectedIndexChanged);
             // 
             // columnHeader1
             // 
@@ -130,35 +133,35 @@ namespace WindowsFormsApp5
             this.columnHeader4.Text = "Path";
             this.columnHeader4.Width = 415;
             // 
-            // button3
+            // toggleButton
             // 
-            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(536, 300);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 6;
-            this.button3.Text = "Toggle";
-            this.button3.UseVisualStyleBackColor = true;
+            this.toggleButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.toggleButton.Location = new System.Drawing.Point(535, 300);
+            this.toggleButton.Name = "toggleButton";
+            this.toggleButton.Size = new System.Drawing.Size(75, 23);
+            this.toggleButton.TabIndex = 7;
+            this.toggleButton.Text = "Toggle";
+            this.toggleButton.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // uncheckAllButton
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(455, 300);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Uncheck all";
-            this.button2.UseVisualStyleBackColor = true;
+            this.uncheckAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.uncheckAllButton.Location = new System.Drawing.Point(292, 300);
+            this.uncheckAllButton.Name = "uncheckAllButton";
+            this.uncheckAllButton.Size = new System.Drawing.Size(78, 23);
+            this.uncheckAllButton.TabIndex = 4;
+            this.uncheckAllButton.Text = "Uncheck all";
+            this.uncheckAllButton.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // checkAllButton
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(374, 300);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Check all";
-            this.button1.UseVisualStyleBackColor = true;
+            this.checkAllButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkAllButton.Location = new System.Drawing.Point(211, 300);
+            this.checkAllButton.Name = "checkAllButton";
+            this.checkAllButton.Size = new System.Drawing.Size(78, 23);
+            this.checkAllButton.TabIndex = 3;
+            this.checkAllButton.Text = "Check all";
+            this.checkAllButton.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
@@ -166,10 +169,30 @@ namespace WindowsFormsApp5
             this.button4.Location = new System.Drawing.Point(12, 300);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(75, 23);
-            this.button4.TabIndex = 7;
+            this.button4.TabIndex = 2;
             this.button4.Text = "Topics...";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // checkButton
+            // 
+            this.checkButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkButton.Location = new System.Drawing.Point(373, 300);
+            this.checkButton.Name = "checkButton";
+            this.checkButton.Size = new System.Drawing.Size(78, 23);
+            this.checkButton.TabIndex = 5;
+            this.checkButton.Text = "Check";
+            this.checkButton.UseVisualStyleBackColor = true;
+            // 
+            // uncheckButton
+            // 
+            this.uncheckButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.uncheckButton.Location = new System.Drawing.Point(454, 300);
+            this.uncheckButton.Name = "uncheckButton";
+            this.uncheckButton.Size = new System.Drawing.Size(78, 23);
+            this.uncheckButton.TabIndex = 6;
+            this.uncheckButton.Text = "Uncheck";
+            this.uncheckButton.UseVisualStyleBackColor = true;
             // 
             // SelectedTopicsDialog
             // 
@@ -178,10 +201,12 @@ namespace WindowsFormsApp5
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(623, 364);
+            this.Controls.Add(this.uncheckButton);
+            this.Controls.Add(this.checkButton);
             this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.toggleButton);
+            this.Controls.Add(this.uncheckAllButton);
+            this.Controls.Add(this.checkAllButton);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.cancelButton);
@@ -205,15 +230,17 @@ namespace WindowsFormsApp5
         private System.Windows.Forms.Button helpButton;
         private WindowsFormsControlLibrary1.ChangeDetector changeDetector1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
-        private SmartListView topicListView;
+        private System.Windows.Forms.Button toggleButton;
+        private System.Windows.Forms.Button uncheckAllButton;
+        private System.Windows.Forms.Button checkAllButton;
+        private SmartListView topicsListView;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button checkButton;
+        private System.Windows.Forms.Button uncheckButton;
     }
 }
 

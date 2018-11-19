@@ -276,5 +276,15 @@ namespace WindowsFormsApp5
         {
             ExportPhrases();
         }
+
+        /// <summary>
+        /// The exitToolStripMenuItem_Click
+        /// </summary>
+        /// <param name="sender">The sender<see cref="object"/></param>
+        /// <param name="e">The e<see cref="EventArgs"/></param>
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
