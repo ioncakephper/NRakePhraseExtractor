@@ -13,7 +13,6 @@ namespace WindowsFormsControlLibrary1
     /// </summary>
     public partial class SmartListView : ListView
     {
-
         /// <summary>
         /// Defines the sortingColumn
         /// </summary>
@@ -58,7 +57,6 @@ namespace WindowsFormsControlLibrary1
         /// <param name="e">The e<see cref="ColumnClickEventArgs"/></param>
         private void SmartListView_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-
             ColumnHeader newSortingColumn = this.Columns[e.Column];
             System.Windows.Forms.SortOrder sortOrder;
 
@@ -91,7 +89,6 @@ namespace WindowsFormsControlLibrary1
             }
 
             this.ListViewItemSorter = new ListViewComparer(e.Column, sortOrder);
-
             Sort();
         }
     }

@@ -89,7 +89,6 @@ namespace WindowsFormsApp5
             }
             catch (System.Exception)
             {
-
                 text = Title;
             }
 
