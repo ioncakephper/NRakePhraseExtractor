@@ -15,6 +15,9 @@ namespace WindowsFormsApp5
     /// </summary>
     public class Phrase
     {
+        private List<Topic> topics;
+        private int v;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Phrase"/> class.
         /// </summary>
@@ -30,9 +33,9 @@ namespace WindowsFormsApp5
         /// </summary>
         /// <param name="keyword">The keyword<see cref="string"/></param>
         /// <param name="aggregatedLeagueTable">The aggregatedLeagueTable<see cref="SortedList{string, double}"/></param>
-        public Phrase(string keyword, SortedList<string, double> aggregatedLeagueTable) : this(keyword)
+        public Phrase(string keyword, double score) : this(keyword)
         {
-            Score = aggregatedLeagueTable[keyword];
+            Score = score;
         }
 
         /// <summary>
@@ -41,23 +44,18 @@ namespace WindowsFormsApp5
         /// <param name="keyword">The keyword<see cref="string"/></param>
         /// <param name="aggregatedLeagueTable">The aggregatedLeagueTable<see cref="SortedList{string, double}"/></param>
         /// <param name="rank">The rank<see cref="int"/></param>
-        public Phrase(string keyword, SortedList<string, double> aggregatedLeagueTable, int rank) : this(keyword, aggregatedLeagueTable)
+        public Phrase(string keyword, double score, int rank) : this(keyword, score)
         {
             Rank = rank;
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Phrase"/> class.
-        /// </summary>
-        /// <param name="keyword">The keyword<see cref="string"/></param>
-        /// <param name="aggregatedLeagueTable">The aggregatedLeagueTable<see cref="SortedList{string, double}"/></param>
-        /// <param name="topics">The topics<see cref="Topics"/></param>
-        /// <param name="stopFilter">The stopFilter<see cref="NRakeCore.StopWordFilters.IStopWordFilter"/></param>
-        /// <param name="rank">The rank<see cref="int"/></param>
-        public Phrase(string keyword, SortedList<string, double> aggregatedLeagueTable, Topics topics, NRakeCore.StopWordFilters.IStopWordFilter stopFilter, int rank) : this(keyword, aggregatedLeagueTable, rank)
+        public Phrase(string keyword, double score, Topics topics, int rank) : this(keyword, score)
         {
-            Topics.AddRange(topics.Where(topic => TopicKeywords(topic, stopFilter).Contains(keyword)).ToArray());
+            Topics = topics;
+            Rank = rank;
         }
+
+
 
         /// <summary>
         /// Gets the Rank
@@ -77,7 +75,7 @@ namespace WindowsFormsApp5
         /// <summary>
         /// Gets or sets the Topics
         /// </summary>
-        public Topics Topics { get; internal set; } = new Topics();
+        public Topics Topics { get; set; } = new Topics();
 
         /// <summary>
         /// Gets the Words

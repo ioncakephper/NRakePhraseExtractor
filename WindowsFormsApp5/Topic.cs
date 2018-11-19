@@ -76,7 +76,7 @@ namespace WindowsFormsApp5
         /// <returns>The <see cref="string"/></returns>
         public string GetText()
         {
-            string text = Title;
+            string text = string.Empty;
 
             try
             {

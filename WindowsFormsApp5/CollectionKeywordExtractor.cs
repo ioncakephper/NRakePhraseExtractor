@@ -7,6 +7,7 @@
 namespace WindowsFormsApp5
 {
     using NRakeCore;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
@@ -14,8 +15,10 @@ namespace WindowsFormsApp5
     /// <summary>
     /// Defines the <see cref="CollectionKeywordExtractor" />
     /// </summary>
-    public class CollectionKeywordExtractor : KeywordExtractor
+    public class CollectionKeywordExtractor
     {
+        private KeywordExtractor kwe;
+
         /// <summary>
         /// Defines the topics
         /// </summary>
@@ -25,23 +28,20 @@ namespace WindowsFormsApp5
         /// Initializes a new instance of the <see cref="CollectionKeywordExtractor"/> class.
         /// </summary>
         /// <param name="topics">The topics<see cref="Topics"/></param>
-        public CollectionKeywordExtractor(Topics topics) : base(new NRakeCore.StopWordFilters.EnglishSmartStopWordFilter())
+        public CollectionKeywordExtractor(Topics topics) : this(topics, new NRakeCore.StopWordFilters.EnglishSmartStopWordFilter())
         {
             this.topics = topics;
         }
 
         /// <summary>
-        /// The FindPhrases
+        /// Initializes a new instance of the <see cref="CollectionKeywordExtractor"/> class.
         /// </summary>
-        /// <param name="text">The text<see cref="string"/></param>
-        /// <returns>The <see cref="Phrase[]"/></returns>
-        public Phrase[] FindPhrases(string text)
+        /// <param name="topics"></param>
+        /// <param name="filter"></param>
+        public CollectionKeywordExtractor(Topics topics, NRakeCore.StopWordFilters.IStopWordFilter filter)
         {
-            string[] keywords = FindKeyPhrases(text);
-            int rank = 0;
-            var phrases = keywords.Select(kw => new Phrase(kw, AggregatedLeagueTable, ++rank)).ToArray();
-
-            return phrases;
+            this.topics = topics;
+            this.kwe = new KeywordExtractor(filter);
         }
 
         /// <summary>
@@ -65,10 +65,25 @@ namespace WindowsFormsApp5
         /// <returns>The <see cref="IEnumerable{Phrase}"/></returns>
         internal IEnumerable<Phrase> FindAllKeyPhrases()
         {
-            var keyphrases = FindKeyPhrases(GetText());
+            Dictionary<string, KeyPhraseStats> keyphraseTopics = new Dictionary<string, KeyPhraseStats>();
+            foreach (var topic in topics)
+            {
+                var topicKeyPhrases = kwe.FindKeyPhrases(topic.GetText());
+                foreach (var keyPhrase in topicKeyPhrases)
+                {
+                    if (!keyphraseTopics.ContainsKey(keyPhrase))
+                    {
+                        keyphraseTopics.Add(keyPhrase, new KeyPhraseStats());
+                    }
+                    
+                    keyphraseTopics[keyPhrase].Score += kwe.AggregatedLeagueTable[keyPhrase];
+                    keyphraseTopics[keyPhrase].Topics.Add(topic);
+                }             
+            }
+            var keyphrases = keyphraseTopics.OrderByDescending(k => k.Value.Score).Select(k => k.Key).ToArray();
 
             int rank = 0;
-            return keyphrases.Select(keyPhrase => new Phrase(keyPhrase, AggregatedLeagueTable, topics, StopWordFilter, ++rank)).Where(phrase => phrase.Topics.Count > 0).ToArray();
+            return keyphrases.Select(keyphrase => new Phrase(keyphrase, keyphraseTopics[keyphrase].Score, keyphraseTopics[keyphrase].Topics, ++rank)).ToArray();            
         }
     }
 }
