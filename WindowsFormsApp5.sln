@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp5", "WindowsFormsApp5\WindowsFormsApp5.csproj", "{344A8D3F-45CF-4912-98D5-5A5C7CDF539F}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NRakeCore", "NRakeCore\NRakeCore.csproj", "{1D4AF0C3-15F6-48BF-B12D-39C7802172D9}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PhraseExtractorSetup", "PhraseExtractorSetup\PhraseExtractorSetup.vdproj", "{F4000497-65F9-4CBF-BC97-C30A58394694}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PhraseExtractorSetupVS2017", "PhraseExtractorSetupVS2017\PhraseExtractorSetupVS2017.vdproj", "{9FAD00A5-DC89-4E6F-8436-B10D8E75A27F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,8 @@ Global
 		{1D4AF0C3-15F6-48BF-B12D-39C7802172D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4000497-65F9-4CBF-BC97-C30A58394694}.Debug|Any CPU.ActiveCfg = Debug
 		{F4000497-65F9-4CBF-BC97-C30A58394694}.Release|Any CPU.ActiveCfg = Release
+		{9FAD00A5-DC89-4E6F-8436-B10D8E75A27F}.Debug|Any CPU.ActiveCfg = Debug
+		{9FAD00A5-DC89-4E6F-8436-B10D8E75A27F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

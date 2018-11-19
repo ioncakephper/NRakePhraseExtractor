@@ -10,7 +10,6 @@ namespace WindowsFormsApp5
     using System.Linq;
     using System.Text;
     using System.Windows.Forms;
-    using System.Xml;
 
     /// <summary>
     /// Defines the <see cref="Form1" />
@@ -75,42 +74,6 @@ namespace WindowsFormsApp5
         }
 
         /// <summary>
-        /// The CreatePhraseListItem
-        /// </summary>
-        /// <param name="phrase">The phrase<see cref="Phrase"/></param>
-        /// <param name="doc">The doc<see cref="XmlDocument"/></param>
-        /// <returns>The <see cref="XmlElement"/></returns>
-        private XmlElement CreatePhraseListItem(Phrase phrase, XmlDocument doc)
-        {
-            var li = doc.CreateElement("LI");
-
-
-
-            string s = string.Format("<OBJECT type=\"text/sitemap\">\r\n<param name=\"Name\" value=\"{0}\">", phrase.Text);
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append(doc.CreateElement("NEWOBJECT").ToString()).Append("OBJECT type=\"text/sitemap\"").Append('>');
-            sb.AppendLine();
-            sb.Append(string.Format("<param name=\"Name\" value=\"{0}\">", phrase.Text));
-            sb.AppendLine();
-
-            foreach (Topic topic in phrase.Topics)
-            {
-                sb.AppendFormat("<param name=\"Name\" value=\"{0}\">", topic.Title);
-                sb.AppendLine();
-
-                sb.AppendFormat("<param name=\"Local\" value=\"{0}\">", topic.Filepath);
-                sb.AppendLine();
-
-            }
-
-            sb.Append("</OBJECT>"); sb.AppendLine();
-
-            li.InnerText = s;
-            return li;
-        }
-
-        /// <summary>
         /// The customizeToolStripMenuItem_Click
         /// </summary>
         /// <param name="sender">The sender<see cref="object"/></param>
@@ -129,35 +92,6 @@ namespace WindowsFormsApp5
             if (saveFileDialog1.ShowDialog().Equals(DialogResult.OK))
             {
                 var fileName = saveFileDialog1.FileName;
-
-                var doc = new XmlDocument();
-
-                var html = doc.CreateElement("HTML");
-
-                var head = doc.CreateElement("HEAD");
-                var meta = doc.CreateElement("META");
-                meta.SetAttribute("name", "Generator");
-                meta.SetAttribute("content", "Microsoft HTML Help Workshop 4.1");
-
-                var comment = doc.CreateComment(" Sitemap 1.0 ");
-                head.AppendChild(meta);
-                head.AppendChild(comment);
-
-                var ul = doc.CreateElement("UL");
-                foreach (var phrase in Corpus.Phrases)
-                {
-                    ul.AppendChild(CreatePhraseListItem(phrase, doc));
-                }
-
-                var body = doc.CreateElement("BODY");
-                body.AppendChild(ul);
-
-                html.AppendChild(head);
-                html.AppendChild(body);
-
-                doc.AppendChild(html);
-
-                doc.Save(fileName);
 
                 string template = @"<!DOCTYPE HTML PUBLIC "" -//IETF//DTD HTML//EN"">
 <HTML>
