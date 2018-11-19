@@ -115,7 +115,6 @@ namespace NRakeCore
         }
     }
 
-
     public class SparseMatrix<T>
     {
         public int Width { get; private set; }
