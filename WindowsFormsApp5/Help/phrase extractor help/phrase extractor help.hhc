@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<ul>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Phrase Extractor Help">
+		<param name="Local" value="index.htm">
+		<param name="ImageNumber" value="3">
+		</object>
+<ul>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Welcome">
+		<param name="Local" value="_5cn0y5ky4.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Introduction">
+		<param name="Local" value="_5cn0y5w36.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Overview">
+		<param name="Local" value="_5cn0y7bre.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+<ul>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Application Menu">
+		<param name="Local" value="_5cn0y80v0.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+<ul>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="File menu">
+		<param name="Local" value="_5cn1c7ial.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Edit menu">
+		<param name="Local" value="_5cn1c8wq4.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Tools menu">
+		<param name="Local" value="_5cn1c9ipa.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Help menu">
+		<param name="Local" value="_5cn1ca13r.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+</ul>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Application Toolbar">
+		<param name="Local" value="_5cn0y8i0n.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Phrase Browser">
+		<param name="Local" value="_5cn0y98ty.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Phrase Extraction Dialog">
+		<param name="Local" value="_5cn0ybi6q.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Topic Manager Dialog">
+		<param name="Local" value="_5cn0yanfj.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+</ul>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Using application functions">
+		<param name="Local" value="_5cn1cswwp.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+<ul>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Adding Topics">
+		<param name="Local" value="_5cn0zrbrs.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Remove Topics">
+		<param name="Local" value="_5cn0zrquq.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Extracting Phrases">
+		<param name="Local" value="_5cn1cvcu6.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+	<li> <object type="text/sitemap">
+		<param name="Name" value="Exporting Phrases">
+		<param name="Local" value="_5cn0zmqfj.htm">
+		<param name="ImageNumber" value="11">
+		</object>
+	</li>
+</ul>
+	</li>
+</ul>
+	</li>
+</ul>
+</body>
+</html>

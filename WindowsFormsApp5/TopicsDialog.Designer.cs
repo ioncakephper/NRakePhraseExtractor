@@ -36,16 +36,17 @@ namespace WindowsFormsApp5
             this.helpButton = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.removeButton = new System.Windows.Forms.Button();
-            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.topicsListView = new WindowsFormsControlLibrary1.SmartListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button2 = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.removeButton = new System.Windows.Forms.Button();
+            this.openFileDialog2 = new System.Windows.Forms.OpenFileDialog();
             this.changeDetector1 = new WindowsFormsControlLibrary1.ChangeDetector(this.components);
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,9 +54,9 @@ namespace WindowsFormsApp5
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(534, 421);
+            this.okButton.Location = new System.Drawing.Point(452, 421);
             this.okButton.Name = "okButton";
-            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.Size = new System.Drawing.Size(116, 23);
             this.okButton.TabIndex = 6;
             this.okButton.Text = "OK";
             this.okButton.UseVisualStyleBackColor = true;
@@ -64,9 +65,9 @@ namespace WindowsFormsApp5
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(615, 421);
+            this.cancelButton.Location = new System.Drawing.Point(574, 421);
             this.cancelButton.Name = "cancelButton";
-            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.Size = new System.Drawing.Size(116, 23);
             this.cancelButton.TabIndex = 0;
             this.cancelButton.Text = "Cancel";
             this.cancelButton.UseVisualStyleBackColor = true;
@@ -74,9 +75,9 @@ namespace WindowsFormsApp5
             // helpButton
             // 
             this.helpButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.helpButton.Location = new System.Drawing.Point(453, 421);
+            this.helpButton.Location = new System.Drawing.Point(330, 421);
             this.helpButton.Name = "helpButton";
-            this.helpButton.Size = new System.Drawing.Size(75, 23);
+            this.helpButton.Size = new System.Drawing.Size(116, 23);
             this.helpButton.TabIndex = 5;
             this.helpButton.Text = "Help";
             this.helpButton.UseVisualStyleBackColor = true;
@@ -102,6 +103,40 @@ namespace WindowsFormsApp5
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(556, 403);
             this.panel1.TabIndex = 1;
+            // 
+            // topicsListView
+            // 
+            this.topicsListView.AllowColumnReorder = true;
+            this.topicsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
+            this.topicsListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.topicsListView.FullRowSelect = true;
+            this.topicsListView.Location = new System.Drawing.Point(0, 0);
+            this.topicsListView.Name = "topicsListView";
+            this.topicsListView.Size = new System.Drawing.Size(556, 403);
+            this.topicsListView.TabIndex = 0;
+            this.topicsListView.UseCompatibleStateImageBehavior = false;
+            this.topicsListView.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Topic";
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Filename";
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Folder";
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Path";
+            this.columnHeader4.Width = 372;
             // 
             // button2
             // 
@@ -138,43 +173,14 @@ namespace WindowsFormsApp5
             this.openFileDialog2.Filter = "All files(*.*)|*.*|TOC files(*.hhc)|*.hhc";
             this.openFileDialog2.FilterIndex = 2;
             // 
-            // topicsListView
-            // 
-            this.topicsListView.AllowColumnReorder = true;
-            this.topicsListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
-            this.topicsListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.topicsListView.FullRowSelect = true;
-            this.topicsListView.Location = new System.Drawing.Point(0, 0);
-            this.topicsListView.Name = "topicsListView";
-            this.topicsListView.Size = new System.Drawing.Size(556, 403);
-            this.topicsListView.TabIndex = 0;
-            this.topicsListView.UseCompatibleStateImageBehavior = false;
-            this.topicsListView.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Topic";
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Filename";
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Folder";
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Path";
-            this.columnHeader4.Width = 372;
-            // 
             // changeDetector1
             // 
             this.changeDetector1.DialogResult = System.Windows.Forms.DialogResult.None;
+            // 
+            // helpProvider1
+            // 
+            this.helpProvider1.HelpNamespace = "C:\\Users\\shytiger\\Source\\Repos\\ioncakephper\\NRakePhraseExtractor\\WindowsFormsApp5" +
+    "\\Help\\phrase extractor help\\phrase extractor help.chm";
             // 
             // TopicsDialog
             // 
@@ -190,9 +196,12 @@ namespace WindowsFormsApp5
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
+            this.helpProvider1.SetHelpKeyword(this, "9");
+            this.helpProvider1.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.TopicId);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "TopicsDialog";
+            this.helpProvider1.SetShowHelp(this, true);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Topics";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.TopicsDialog_FormClosing);
@@ -219,6 +228,7 @@ namespace WindowsFormsApp5
         private WindowsFormsControlLibrary1.ChangeDetector changeDetector1;
         private System.Windows.Forms.Button removeButton;
         private System.Windows.Forms.OpenFileDialog openFileDialog2;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }
 

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<wwhelptopics>
+	<topic text="Phrase Extractor Help" filename="index" image="images/INDEX.gif" keywords="Phrase Extractor Help;">
+		<topic text="Welcome" filename="_5cn0y5ky4" image="images/TOPIC.gif" keywords="Welcome;">
+		</topic>
+		<topic text="Introduction" filename="_5cn0y5w36" image="images/TOPIC.gif" keywords="Introduction;">
+		</topic>
+		<topic text="Overview" filename="_5cn0y7bre" image="images/TOPIC.gif" keywords="Overview;">
+			<topic text="Application Menu" filename="_5cn0y80v0" image="images/TOPIC.gif" keywords="Application Menu;">
+				<topic text="File menu" filename="_5cn1c7ial" image="images/TOPIC.gif" keywords="File menu;">
+				</topic>
+				<topic text="Edit menu" filename="_5cn1c8wq4" image="images/TOPIC.gif" keywords="Edit menu;">
+				</topic>
+				<topic text="Tools menu" filename="_5cn1c9ipa" image="images/TOPIC.gif" keywords="Tools menu;">
+				</topic>
+				<topic text="Help menu" filename="_5cn1ca13r" image="images/TOPIC.gif" keywords="Help menu;">
+				</topic>
+			</topic>
+			<topic text="Application Toolbar" filename="_5cn0y8i0n" image="images/TOPIC.gif" keywords="Application Toolbar;">
+			</topic>
+			<topic text="Phrase Browser" filename="_5cn0y98ty" image="images/TOPIC.gif" keywords="Phrase Browser;">
+			</topic>
+			<topic text="Phrase Extraction Dialog" filename="_5cn0ybi6q" image="images/TOPIC.gif" keywords="Phrase Extraction Dialog;">
+			</topic>
+			<topic text="Topic Manager Dialog" filename="_5cn0yanfj" image="images/TOPIC.gif" keywords="Topic Manager Dialog;">
+			</topic>
+		</topic>
+		<topic text="Using application functions" filename="_5cn1cswwp" image="images/TOPIC.gif" keywords="Using application functions;">
+			<topic text="Adding Topics" filename="_5cn0zrbrs" image="images/TOPIC.gif" keywords="Adding Topics;">
+			</topic>
+			<topic text="Remove Topics" filename="_5cn0zrquq" image="images/TOPIC.gif" keywords="Remove Topics;">
+			</topic>
+			<topic text="Extracting Phrases" filename="_5cn1cvcu6" image="images/TOPIC.gif" keywords="Extracting Phrases;">
+			</topic>
+			<topic text="Exporting Phrases" filename="_5cn0zmqfj" image="images/TOPIC.gif" keywords="Exporting Phrases;">
+			</topic>
+		</topic>
+	</topic>
+</wwhelptopics>

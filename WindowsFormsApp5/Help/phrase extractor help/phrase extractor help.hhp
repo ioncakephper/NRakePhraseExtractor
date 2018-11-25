@@ -1,0 +1,57 @@
+[OPTIONS]
+Compatibility=1.1
+Compiled file=phrase extractor help.chm
+Contents file=phrase extractor help.hhc
+Default topic=index.htm
+Display compile progress=No
+Full-text search=Yes
+Index file=phrase extractor help.hhk
+Language=0x409 English (United States)
+Title=Phrase Extractor Help
+Default Window=wwHelpWindow
+
+[WINDOWS]
+wwHelpWindow=,"phrase extractor help.hhc","phrase extractor help.hhk","index.htm","index.htm",,,,,0x63520,,0x387e,[0,0,700,480],,,,,,,0
+
+[FILES]
+_5cn0y80v0.htm
+_5cn0y8i0n.htm
+_5cn0y5ky4.htm
+_5cn0zrbrs.htm
+_5cn1c7ial.htm
+_5cn0y5w36.htm
+_5cn0y98ty.htm
+_5cn0zrquq.htm
+_5cn1c8wq4.htm
+_5cn0y7bre.htm
+_5cn0ybi6q.htm
+_5cn1c9ipa.htm
+_5cn1cvcu6.htm
+_5cn0yanfj.htm
+_5cn1ca13r.htm
+_5cn1cswwp.htm
+_5cn0zmqfj.htm
+
+
+[ALIAS]
+IDH_APPLICATION_MENU=_5cn0y80v0.htm
+IDH_APPLICATION_TOOLBAR=_5cn0y8i0n.htm
+IDH_WELCOME=_5cn0y5ky4.htm
+IDH_ADDING_TOPICS=_5cn0zrbrs.htm
+IDH_FILE_MENU=_5cn1c7ial.htm
+IDH_INTRODUCTION=_5cn0y5w36.htm
+IDH_PHRASE_BROWSER=_5cn0y98ty.htm
+IDH_REMOVE_TOPICS=_5cn0zrquq.htm
+IDH_EDIT_MENU=_5cn1c8wq4.htm
+IDH_OVERVIEW=_5cn0y7bre.htm
+IDH_PHRASE_EXTRACTION_DIALOG=_5cn0ybi6q.htm
+IDH_TOOLS_MENU=_5cn1c9ipa.htm
+IDH_EXTRACTING_PHRASES=_5cn1cvcu6.htm
+IDH_TOPIC_MANAGER_DIALOG=_5cn0yanfj.htm
+IDH_HELP_MENU=_5cn1ca13r.htm
+IDH_USING_APPLICATION_FUNCTIONS=_5cn1cswwp.htm
+IDH_EXPORTING_PHRASES=_5cn0zmqfj.htm
+
+
+[MAP]
+#include c:\users\shytiger\documents\html help builder projects\phrase extractor help\phrase extractor help_help.h

@@ -47,6 +47,7 @@ namespace WindowsFormsApp5
             this.button4 = new System.Windows.Forms.Button();
             this.checkButton = new System.Windows.Forms.Button();
             this.uncheckButton = new System.Windows.Forms.Button();
+            this.helpProvider1 = new System.Windows.Forms.HelpProvider();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -194,6 +195,11 @@ namespace WindowsFormsApp5
             this.uncheckButton.Text = "Uncheck";
             this.uncheckButton.UseVisualStyleBackColor = true;
             // 
+            // helpProvider1
+            // 
+            this.helpProvider1.HelpNamespace = "C:\\Users\\shytiger\\Source\\Repos\\ioncakephper\\NRakePhraseExtractor\\WindowsFormsApp5" +
+    "\\Help\\phrase extractor help\\phrase extractor help.chm";
+            // 
             // SelectedTopicsDialog
             // 
             this.AcceptButton = this.okButton;
@@ -211,9 +217,12 @@ namespace WindowsFormsApp5
             this.Controls.Add(this.helpButton);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
+            this.helpProvider1.SetHelpKeyword(this, "10");
+            this.helpProvider1.SetHelpNavigator(this, System.Windows.Forms.HelpNavigator.TopicId);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SelectedTopicsDialog";
+            this.helpProvider1.SetShowHelp(this, true);
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Select topics";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SelectedTopicsDialog_FormClosing);
@@ -241,6 +250,7 @@ namespace WindowsFormsApp5
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Button checkButton;
         private System.Windows.Forms.Button uncheckButton;
+        private System.Windows.Forms.HelpProvider helpProvider1;
     }
 }
 

@@ -286,5 +286,10 @@ namespace WindowsFormsApp5
         {
             Close();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            var pathToChm = Application.StartupPath;
+        }
     }
 }
