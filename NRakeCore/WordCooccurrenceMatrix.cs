@@ -138,8 +138,7 @@ namespace NRakeCore
 
             return agg;
         }
-
-
+        
         public SortedList<string, WordScore> LeagueTable
         {
             get

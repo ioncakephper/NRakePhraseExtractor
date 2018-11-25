@@ -54,9 +54,7 @@ namespace WindowsFormsApp5
             Topics = topics;
             Rank = rank;
         }
-
-
-
+        
         /// <summary>
         /// Gets the Rank
         /// </summary>

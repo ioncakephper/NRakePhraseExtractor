@@ -115,7 +115,6 @@ namespace NRakeCore
         }
     }
 
-
     public class SparseMatrix<T>
     {
         public int Width { get; private set; }
@@ -135,14 +134,14 @@ namespace NRakeCore
         {
             get
             {
-                long index = row * Width + col;
+                long index = (row * Width) + col;
                 T result;
                 _cells.TryGetValue(index, out result);
                 return result;
             }
             set
             {
-                long index = row * Width + col;
+                long index = (row * Width) + col;
                 _cells[index] = value;
             }
         }
